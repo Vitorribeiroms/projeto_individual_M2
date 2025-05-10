@@ -9,11 +9,11 @@ Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o p
 
 ## Instalação
 
-1. **Clonar o repositório:**
+1. **Repositório projeto individual:**
 
 ```bash
-   git clone https://github.com/seu-usuario/seu-projeto.git
-   cd seu-projeto
+   https://github.com/Vitorribeiroms/projeto_individual_M2.git
+   cd 
 ```
 
 2. **Instalar as dependências:**

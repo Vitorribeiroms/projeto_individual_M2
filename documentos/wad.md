@@ -2,9 +2,9 @@
 
 **_Os trechos em itálico servem apenas como guia para o preenchimento da seção. Por esse motivo, não devem fazer parte da documentação final._**
 
-## Nome do Projeto
+## Sistema de reserva de salas para agendamentos.
 
-#### Autor do projeto
+#### Vitor Ribeiro De Mattos Silva
 
 ## Sumário
 
@@ -18,8 +18,11 @@
 
 ## <a name="c1"></a>1. Introdução (Semana 01)
 
-*Preencha com até 300 palavras – sem necessidade de fonte.*
-*Descreva brevemente o sistema que você irá desenvolver.*
+&emsp;O sistema que será desenvolvido é uma aplicação de agendamento de salas, voltada para ambientes como escritórios, coworkings, instituições de ensino ou espaços compartilhados. O objetivo principal é permitir que usuários registrados possam reservar salas disponíveis para uso em horários específicos, promovendo organização, praticidade e melhor utilização dos espaços físicos.
+
+&emsp;A base de dados é composta por três tabelas principais: Usuarios, Agendamentos e Salas. A tabela Usuarios armazena informações pessoais como nome, gênero, idade, e-mail e senha, sendo identificada pelo campo id. A tabela Salas contém os dados das salas disponíveis, identificadas pelo número e um id único. Já a tabela Agendamentos faz a ligação entre usuários e salas, registrando a data e hora do agendamento, além dos respectivos id_usuarios e id_salas envolvidos.
+
+&emsp;Esse sistema permite ao usuário consultar a disponibilidade das salas, selecionar o horário desejado e confirmar a reserva. Além disso, é possível aplicar autenticação para garantir que apenas usuários cadastrados realizem agendamentos. O relacionamento entre as tabelas é feito por meio de chaves estrangeiras, o que garante a integridade referencial dos dados.
 
 ---
 
@@ -38,10 +41,142 @@
 ## <a name="c3"></a>3. Projeto da Aplicação Web
 
 ### 3.1. Modelagem do banco de dados  (Semana 3)
+<div align="center">
+<sub>Figura 1 - Diagramas de modelo relacional do banco de dados - Projeto individual_M2</sub>
+<img src="../assets/Diagrama.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
 
-*Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
 
-*Posicione também o modelo físico com o Schema do BD (arquivo .sql)*
+---
+&emsp; A imagem acima apresenta o diagrama relacional do banco de dados do sistema de agendamento de salas. O modelo é composto por três entidades principais: Usuarios, Agendamentos e Salas, todas inter-relacionadas por meio de chaves primárias e estrangeiras que garantem a integridade dos dados.
+
+***Esquema das Tabelas:***
+
+### Usuarios
+
+id (PK): Identificador único do usuário.
+
+1. **Nome:** Nome do usuário.
+
+2. **gênero:** Gênero do usuário.
+
+3. **idade:** Idade do usuário.
+
+4. **email:** E-mail do usuário.
+
+5. **senha:** Senha para autenticação no sistema.
+
+### Agendamentos
+
+id (PK): Identificador único do agendamento.
+
+1. **Data:** Data em que a sala será utilizada.
+
+2. **Hora:** Hora do agendamento.
+
+3. **id_Salas (FK):** Referência ao id da tabela Salas.
+
+4. **id_Usuarios (FK):** Referência ao id da tabela Usuarios.
+
+### Salas
+
+id (PK): Identificador único da sala.
+
+1. **numero:** Número de identificação da sala.
+---
+
+
+ **Relações:**
+A tabela Agendamentos funciona como uma tabela de junção entre Usuarios e Salas, representando a reserva de uma sala por um determinado usuário em uma data e hora específicos.
+
+A coluna id_Usuarios na tabela Agendamentos é uma chave estrangeira que se relaciona com a chave primária id da tabela Usuarios.
+
+Da mesma forma, id_Salas é uma chave estrangeira que se relaciona com o id da tabela Salas.
+
+---
+
+### Modelo físico (arquivo .sql)
+
+``` -- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'Usuarios'
+-- ---
+
+DROP TABLE IF EXISTS `Usuarios`;
+
+CREATE TABLE `Usuarios` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Nome` VARCHAR NULL DEFAULT NULL,
+  `idade` VARCHAR NULL DEFAULT NULL,
+  `Gênero` VARCHAR NULL DEFAULT NULL,
+  `Email` VARCHAR NULL DEFAULT NULL,
+  `Senha` VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Agendamentos'
+-- ---
+
+DROP TABLE IF EXISTS `Agendamentos`;
+
+CREATE TABLE `Agendamentos` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Data` VARCHAR NULL DEFAULT NULL,
+  `Hora` VARCHAR NULL DEFAULT NULL,
+  `id_salas` VARCHAR NULL DEFAULT NULL,
+  `id_usuarios` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Salas'
+-- ---
+
+DROP TABLE IF EXISTS `Salas`;
+
+CREATE TABLE `Salas` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `Numero` VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys
+-- ---
+
+ALTER TABLE `Agendamentos` ADD FOREIGN KEY (id_salas) REFERENCES `Salas` (`id`);
+ALTER TABLE `Agendamentos` ADD FOREIGN KEY (id_usuarios) REFERENCES `Usuarios` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `Usuarios` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Agendamentos` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Salas` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `Usuarios` (`id`,`Nome`,`idade`,`Gênero`,`Email`,`Senha`) VALUES
+-- ('','','','','','');
+-- INSERT INTO `Agendamentos` (`id`,`Data`,`Hora`,`id_salas`,`id_usuarios`) VALUES
+-- ('','','','','');
+-- INSERT INTO `Salas` (`id`,`Numero`) VALUES
+-- ('',''); 
+
+```
+
+---
 
 ### 3.1.1 BD e Models (Semana 5)
 *Descreva aqui os Models implementados no sistema web*
