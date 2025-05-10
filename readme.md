@@ -88,6 +88,6 @@ Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o p
 - `npm run test`: Executa os testes automatizados.
 - `npm run test:coverage`: Executa os testes e gera um relatório de cobertura de código.
 
-## 📋 Licença
+##  Licença
 
 Este projeto está licenciado sob a Licença MIT.
