@@ -67,25 +67,25 @@
 ---
  ### Abaixo, encontram-se as User Stories mapeadas para o projeto de sistema de agendamento de salas:
 
-US01 – Como João, quero me cadastrar no sistema para poder realizar agendamentos de sala.
+US01 – Como Miguel, quero me cadastrar no sistema para poder realizar agendamentos de sala.
 
-US02 – Como João, quero fazer login com meu e-mail e senha para acessar minha conta de forma segura.
+US02 – Como Miguel, quero fazer login com meu e-mail e senha para acessar minha conta de forma segura.
 
-US03 – Como João, quero visualizar as salas disponíveis para escolher a melhor opção para meu grupo.
+US03 – Como Miguel, quero visualizar as salas disponíveis para escolher a melhor opção para meu grupo.
 
-US04 – Como João, quero agendar uma sala com data e hora para reservar meu espaço de estudo.
+US04 – Como Miguel, quero agendar uma sala com data e hora para reservar meu espaço de estudo.
 
-US05 – Como João, quero receber uma confirmação do meu agendamento para saber que ele foi registrado.
+US05 – Como Miguel, quero receber uma confirmação do meu agendamento para saber que ele foi registrado.
 
-US06 – Como João, quero visualizar meus agendamentos anteriores para planejar melhor meu tempo.
+US06 – Como Miguel, quero visualizar meus agendamentos anteriores para planejar melhor meu tempo.
 
-US07 – Como Marina, quero acessar uma lista de todos os agendamentos para monitorar a ocupação das salas.
+US07 – Como Alice, quero acessar uma lista de todos os agendamentos para monitorar a ocupação das salas.
 
-US08 – Como Marina, quero visualizar os horários de cada sala para evitar conflitos de agendamento.
+US08 – Como Alice, quero visualizar os horários de cada sala para evitar conflitos de agendamento.
 
-US09 – Como Marina, quero editar ou remover agendamentos caso haja erros ou conflitos.
+US09 – Como Alice, quero editar ou remover agendamentos caso haja erros ou conflitos.
 
-US10 – Como Marina, quero gerar relatórios mensais sobre a utilização das salas para auxiliar na gestão acadêmica.
+US10 – Como Alice, quero gerar relatórios mensais sobre a utilização das salas para auxiliar na gestão acadêmica.
 
 ---
 
