@@ -91,7 +91,7 @@ US10 – Como Alice, quero gerar relatórios mensais sobre a utilização das sa
 
 ### Análise INVEST – US04 (User Story Prioritária)
 
-US04 – Como João, quero agendar uma sala com data e hora para reservar meu espaço de estudo.
+US04 – Como Miguel, quero agendar uma sala com data e hora para reservar meu espaço de estudo.
 --- 
 
 ### Explicação do modelo INVEST:
