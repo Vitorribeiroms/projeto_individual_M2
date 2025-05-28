@@ -1,11 +1,9 @@
-// services/userService.js
-
 const db = require('../config/db');
 
 // Função para obter todos os usuários
-const getAllUsers = async () => {
+const getAllUsuarios = async () => {
   try {
-    const result = await db.query('SELECT * FROM users');
+    const result = await db.query('SELECT * FROM Usuarios');
     return result.rows;
   } catch (error) {
     throw new Error('Erro ao obter usuários: ' + error.message);
@@ -13,9 +11,9 @@ const getAllUsers = async () => {
 };
 
 // Função para obter um usuário por ID
-const getUserById = async (id) => {
+const getUsuarioById = async (id) => {
   try {
-    const result = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+    const result = await db.query('SELECT * FROM Usuarios WHERE id = $1', [id]);
     return result.rows[0];
   } catch (error) {
     throw new Error('Erro ao obter usuário: ' + error.message);
@@ -23,11 +21,11 @@ const getUserById = async (id) => {
 };
 
 // Função para criar um novo usuário
-const createUser = async (name, email) => {
+const createUsuario = async (Nome, gênero, idade, email, senha) => {
   try {
     const result = await db.query(
-      'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
-      [name, email]
+      'INSERT INTO Usuarios (Nome, gênero, idade, email, senha) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [Nome, gênero, idade, email, senha]
     );
     return result.rows[0];
   } catch (error) {
@@ -36,11 +34,11 @@ const createUser = async (name, email) => {
 };
 
 // Função para atualizar um usuário por ID
-const updateUser = async (id, name, email) => {
+const updateUsuario = async (id, Nome, gênero, idade, email, senha) => {
   try {
     const result = await db.query(
-      'UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *',
-      [name, email, id]
+      'UPDATE Usuarios SET Nome = $1, gênero = $2, idade = $3, email = $4, senha = $5 WHERE id = $6 RETURNING *',
+      [Nome, gênero, idade, email, senha, id]
     );
     return result.rows[0];
   } catch (error) {
@@ -49,9 +47,9 @@ const updateUser = async (id, name, email) => {
 };
 
 // Função para deletar um usuário por ID
-const deleteUser = async (id) => {
+const deleteUsuario = async (id) => {
   try {
-    const result = await db.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
+    const result = await db.query('DELETE FROM Usuarios WHERE id = $1 RETURNING *', [id]);
     return result.rows[0];
   } catch (error) {
     throw new Error('Erro ao deletar usuário: ' + error.message);
@@ -59,9 +57,9 @@ const deleteUser = async (id) => {
 };
 
 module.exports = {
-  getAllUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser
+  getAllUsuarios,
+  getUsuarioById,
+  createUsuario,
+  updateUsuario,
+  deleteUsuario
 };
