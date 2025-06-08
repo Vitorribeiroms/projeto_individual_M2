@@ -4,7 +4,7 @@ const userModel = require('../models/userModel');
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await userModel.findAll();
+    const users = await userService.getAllUsuarios();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await userModel.findById(req.params.id);
+    const user = await userService.getUsuarioById(req.params.id);
     if (user) {
       res.status(200).json(user);
     } else {
@@ -27,8 +27,8 @@ const getUserById = async (req, res) => {
 // Para API REST
 const createUser = async (req, res) => {
   try {
-    const { nome, genero, idade, email, senha } = req.body;
-    const newUser = await userModel.createUsuario({ nome, genero, idade, email, senha });
+    const { name, email } = req.body;
+    const newUser = await userService.createUsuario(name, email);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -50,8 +50,8 @@ const createUserForm = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { nome, genero, idade, email } = req.body;
-    const updatedUser = await userModel.update(req.params.id, { nome, genero, idade, email });
+    const { name, email } = req.body;
+    const updatedUser = await userService.updateUsuario(req.params.id, name, email);
     if (updatedUser) {
       res.status(200).json(updatedUser);
     } else {
@@ -64,7 +64,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const deletedUser = await userModel.delete(req.params.id);
+    const deletedUser = await userService.deleteUsuario(req.params.id);
     if (deletedUser) {
       res.status(200).json(deletedUser);
     } else {
