@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const agendamentoController = require('../controllers/agendamentoController');
+const agendamentosController = require('../controllers/agendamentosController');
 
-router.get('/', agendamentoController.getAllAgendamentos);
-router.get('/:id', agendamentoController.getAgendamentoById);
-router.post('/', agendamentoController.createAgendamento);
-router.put('/:id', agendamentoController.updateAgendamento);
-router.delete('/:id', agendamentoController.deleteAgendamento);
+router.get('/', agendamentosController.getAllAgendamentos);
+router.get('/:id', agendamentosController.getAgendamentoById);
+router.post('/', agendamentosController.createAgendamento);
+router.put('/:id', agendamentosController.updateAgendamento);
+router.delete('/:id', agendamentosController.deleteAgendamento);
 
 module.exports = router;

@@ -16,6 +16,12 @@ db.connect()
     const userRoutes = require('./routes/userRoutes');
     app.use('/users', userRoutes);
 
+    const salasRoutes = require('./routes/salasRoutes');
+    app.use('/salas', userRoutes);
+
+    const agendamentosRoutes = require('./routes/agendamentosRoutes');
+    app.use('/agendamentos', userRoutes);
+
     const frontendRoutes = require('./routes/frontRoutes');
     app.use('/', frontendRoutes);
 

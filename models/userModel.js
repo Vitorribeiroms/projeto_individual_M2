@@ -1,36 +1,47 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-class Usuario {
-  static async getAll() {
-    const result = await db.query('SELECT * FROM Usuarios');
-    return result.rows;
-  }
+class UserModel {
+    async create(userData) {
+        const { nome, genero, idade, email, senha } = userData;
+        const query = 'INSERT INTO usuarios (nome, genero, idade, email, senha) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+        const values = [nome, genero, idade, email, senha];
+        
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    }
 
-  static async getById(id) {
-    const result = await db.query('SELECT * FROM Usuarios WHERE id = $1', [id]);
-    return result.rows[0];
-  }
+    async findAll() {
+        const query = 'SELECT id, nome, genero, idade, email, created_at FROM usuarios';
+        const result = await pool.query(query);
+        return result.rows;
+    }
 
-  static async create(data) {
-    const result = await db.query(
-      'INSERT INTO Usuarios (Nome, gênero, idade, email, senha) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [data.Nome, data.gênero, data.idade, data.email, data.senha]
-    );
-    return result.rows[0];
-  }
+    async findById(id) {
+        const query = 'SELECT id, nome, genero, idade, email, created_at FROM usuarios WHERE id = $1';
+        const result = await pool.query(query, [id]);
+        return result.rows[0];
+    }
 
-  static async update(id, data) {
-    const result = await db.query(
-      'UPDATE Usuarios SET Nome = $1, gênero = $2, idade = $3, email = $4, senha = $5 WHERE id = $6 RETURNING *',
-      [data.Nome, data.gênero, data.idade, data.email, data.senha, id]
-    );
-    return result.rows[0];
-  }
+    async findByEmail(email) {
+        const query = 'SELECT id, nome, genero, idade, email, created_at FROM usuarios WHERE email = $1';
+        const result = await pool.query(query, [email]);
+        return result.rows[0];
+    }
 
-  static async delete(id) {
-    const result = await db.query('DELETE FROM Usuarios WHERE id = $1 RETURNING *', [id]);
-    return result.rowCount > 0;
-  }
+    async update(id, userData) {
+        const { nome, genero, idade, email } = userData;
+        const query = 'UPDATE usuarios SET nome = $1, genero = $2, idade = $3, email = $4 WHERE id = $5 RETURNING *';
+        const values = [nome, genero, idade, email, id];
+        
+        const result = await pool.query(query, values);
+        return result.rows[0];
+    }
+
+    async delete(id) {
+        const query = 'DELETE FROM usuarios WHERE id = $1 RETURNING *';
+        const result = await pool.query(query, [id]);
+        return result.rows[0];
+    }
 }
 
-module.exports = Usuario;
+module.exports = new UserModel();
