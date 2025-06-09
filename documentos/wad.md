@@ -612,7 +612,7 @@ O desenvolvimento do frontend do sistema REVEX Room System foi implementado util
 <sub>Resumo da reserva antes da confirmação</sub>
 </div>
 
-### **5.3 Pop-up de Confirmação**
+### **5.3 Pop-up de Confirmação de reserva**
 <div align="center">
 <img src="../assets/pop-up.png" width="400">
 <sub>Pop-up de confirmação de reserva</sub>
