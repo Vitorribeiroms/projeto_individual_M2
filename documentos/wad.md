@@ -668,7 +668,7 @@ O desenvolvimento do frontend do sistema REVEX Room System foi implementado util
 
 ---
 
-## **Resultados Alcançados**
+## **Resultados Alcançados** 
 - Interface moderna, responsiva e intuitiva
 - Navegação clara e bem estruturada
 - Feedback visual adequado
