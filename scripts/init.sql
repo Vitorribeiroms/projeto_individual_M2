@@ -5,46 +5,56 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Criar tabela de usuários
 CREATE TABLE IF NOT EXISTS usuarios (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  nome VARCHAR(100) NOT NULL,
-  idade INTEGER,
-  genero VARCHAR(20),
-  email VARCHAR(100) UNIQUE NOT NULL,
-  senha VARCHAR(100) NOT NULL
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nome VARCHAR(100) NOT NULL,
+    genero VARCHAR(20),
+    idade INTEGER,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Criar tabela de salas
 CREATE TABLE IF NOT EXISTS salas (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  numero VARCHAR(20) NOT NULL
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    numero VARCHAR(20) NOT NULL UNIQUE,
+    capacidade INTEGER,
+    descricao TEXT,
+    status VARCHAR(20) DEFAULT 'disponivel',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Criar tabela de agendamentos
 CREATE TABLE IF NOT EXISTS agendamentos (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  data DATE NOT NULL,
-  hora TIME NOT NULL,
-  id_sala UUID NOT NULL,
-  id_usuario UUID NOT NULL,
-  CONSTRAINT fk_sala FOREIGN KEY (id_sala) REFERENCES salas(id),
-  CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    data DATE NOT NULL,
+    hora TIME NOT NULL,
+    id_usuario UUID NOT NULL,
+    id_sala UUID NOT NULL,
+    status VARCHAR(20) DEFAULT 'confirmado',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
+    CONSTRAINT fk_sala FOREIGN KEY (id_sala) REFERENCES salas(id) ON DELETE CASCADE,
+    CONSTRAINT unique_sala_data_hora UNIQUE (id_sala, data, hora)
 );
 
 -- Inserir dados de teste na tabela de usuários
-INSERT INTO usuarios (nome, idade, genero, email, senha)
+INSERT INTO usuarios (nome, genero, idade, email, senha)
 VALUES 
-  ('Alice Smith', 25, 'Feminino', 'alice.smith@example.com', 'senha123'),
-  ('Bob Johnson', 30, 'Masculino', 'bob.johnson@example.com', 'senha123'),
-  ('Carol Williams', 28, 'Feminino', 'carol.williams@example.com', 'senha123');
+    ('Miguel Bueno Soares', 'Masculino', 22, 'miguel.soares@email.com', 'senha123'),
+    ('Alice Smith', 'Feminino', 25, 'alice.smith@email.com', 'senha456'),
+    ('Carol Williams', 'Feminino', 28, 'carol.williams@email.com', 'senha789');
 
 -- Inserir dados de teste na tabela de salas
-INSERT INTO salas (numero)
+INSERT INTO salas (numero, capacidade, descricao)
 VALUES 
-  ('101'),
-  ('102'),
-  ('103');
+    ('101', 6, 'Sala de estudo pequena - 1º andar'),
+    ('102', 8, 'Sala de estudo média - 1º andar'),
+    ('201', 12, 'Sala de reunião grande - 2º andar'),
+    ('202', 4, 'Sala de estudo individual - 2º andar');
 
 -- Inserir dados de teste na tabela de agendamentos
--- (obs: para usar esses INSERTs, primeiro recupere os UUIDs reais das tabelas 'salas' e 'usuarios' ou ajuste conforme necessário)
--- Exemplo genérico, deve ser adaptado:
--- INSERT INTO agendamentos (data, hora, id_sala, id_usuario) VALUES ('2025-06-01', '09:00:00', 'uuid_sala', 'uuid_usuario');
+INSERT INTO agendamentos (data, hora, id_usuario, id_sala)
+VALUES 
+    (CURRENT_DATE, '09:00:00', (SELECT id FROM usuarios WHERE email = 'miguel.soares@email.com'), (SELECT id FROM salas WHERE numero = '101')),
+    (CURRENT_DATE, '14:00:00', (SELECT id FROM usuarios WHERE email = 'alice.smith@email.com'), (SELECT id FROM salas WHERE numero = '201'));
