@@ -266,8 +266,72 @@ VALUES
 
 ### 3.4. Guia de estilos (Semana 05)
 
-*Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
+<div align="center">
+<sub>Figura 4 - Guia de estilos - Projeto individual_M2</sub>
+<img src="../assets/guiaDeEstilo.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
 
+#  Aplicação do Guia de Estilos – REVEX Room System
+
+Este documento descreve como os componentes do guia de estilos foram utilizados na interface da aplicação REVEX, promovendo consistência visual e usabilidade.
+
+---
+
+## 1. Tipografia
+
+A hierarquia tipográfica foi respeitada em toda a aplicação:
+
+- **Headings**:
+  - Utilizados em telas como:
+  - **Frame 3 (Bem-vindo)** e **Frame 6 (Minhas Reservas)** com títulos evidentes e centralizados.
+  - Fonte de título legível e em destaque (provavelmente `Heading 1` ou `Heading 2`).
+
+- **Body Text**:
+  - Utilizado em campos de formulários (Frame 1 e 2), botões e descrições de horários e datas.
+  - Tamanhos menores (como `Body 2` ou `Body 3`) são aplicados para textos explicativos e dados menos destacados.
+
+---
+
+## 2. Ícones
+
+Ícones são aplicados de forma funcional e intuitiva:
+
+- Ícone de menu lateral e ícone de perfil aparecem na barra superior de navegação (presentes em todos os frames exceto o de login).
+- Ícones de ação como o botão **“+”** ou **“lixeira”** no Frame 6 servem para adicionar ou remover reservas.
+- Ícones de setas (Frame 5) são utilizados para navegação entre salas e horários disponíveis.
+
+> O uso consistente dos ícones melhora a experiência do usuário, reforçando as funções dos elementos visuais.
+
+---
+
+## 3. Cores
+
+A paleta de cores definida no guia foi aplicada com clareza:
+
+### Cores principais:
+- **#FFB246 (primária)** e **#FF9046 (secundária)** aparecem:
+  - Em **botões** (como “Entrar”, “Confirmar”, “Cadastrar”).
+  - Na **barra de navegação superior**.
+  - Como destaque visual em elementos de interação (setas, ícones e seletores de sala).
+
+### Cores neutras:
+- **#FEFEFE (fundo)**: Fundo claro em todas as telas, promovendo clareza e contraste.
+- **#1C1C1C (texto)**: Usado para garantir legibilidade em botões, rótulos de campos, títulos e textos de horários.
+
+---
+
+## 4. Layout e Navegação
+
+A aplicação segue um layout centralizado e organizado, com boa separação de seções e uso adequado do espaçamento. A navegação é simples, com passos lógicos:
+1. **Login (Frame 1)**
+2. **Cadastro (Frame 2)**
+3. **Tela de boas-vindas e opções (Frame 3)**
+4. **Seleção de data (Frame 4)**
+5. **Seleção de sala e horário (Frame 5)**
+6. **Visualização e gerenciamento de reservas (Frame 6)**
+
+---
 
 ### 3.5. Protótipo de alta fidelidade (Semana 05)
 
