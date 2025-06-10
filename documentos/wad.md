@@ -335,7 +335,123 @@ A aplicação segue um layout centralizado e organizado, com boa separação de 
 
 ### 3.5. Protótipo de alta fidelidade (Semana 05)
 
-*Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
+# REVEX Room System – Telas da Aplicação
+
+A seguir está a descrição das telas principais do sistema **REVEX Room System**, uma aplicação voltada para a reserva de salas.
+
+---
+
+##  Frame 1 – Tela de Login
+
+link de acesso ao igma: [Protótipo auta fidelidade - figma]( https://www.figma.com/design/1AmZBZkzc4asEOjEZ8Mb5o/REVEX?node-id=28-2&t=rIC7iE7UDH9wUiZN-1)
+
+<div align="center">
+<sub>Figura 5 - Guia de estilos - Projeto individual_M2</sub>
+<img src="../assets/telaLogin.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
+
+- Exibe o logotipo da aplicação.
+- Campos de entrada:
+  - **E-mail**
+  - **Senha**
+- Opções:
+  - [ ] **Manter-me logado**
+  - 🔘 **Entrar**
+  - 🔗 **Cadastrar-se** (link para a tela de registro)
+
+---
+
+##  Frame 2 – Tela de Cadastro
+
+<div align="center">
+<sub>Figura 6 - Guia de estilos - Projeto individual_M2</sub>
+<img src="../assets/telaCadastro.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
+
+- Ícone ilustrativo de usuário (avatar).
+- Formulário com os seguintes campos:
+  - **Nome**
+  - **Telefone**
+  - **E-mail**
+  - **Matrícula**
+  - **Senha**
+- Botões:
+  -  **Cadastrar-se**
+  -  **Voltar** (retorna à tela de login)
+
+---
+
+##  Frame 3 – Tela Inicial após Login
+
+<div align="center">
+<sub>Figura 7 - Guia de estilos - Projeto individual_M2</sub>
+<img src="../assets/telaHome.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
+
+- Saudação de **boas-vindas** ao usuário.
+- Ações disponíveis:
+  -  **Minhas Reservas**
+  -  **+ Reservar Salas**
+  -  **Sair**
+
+---
+
+##  Frame 7 – Seleção de Datas Disponíveis
+
+<div align="center">
+<sub>Figura 8 - Guia de estilos - Projeto individual_M2</sub>
+<img src="../assets/telaCalendario.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
+
+- Exibe um **calendário mensal** (exemplo: Janeiro 2025).
+- Permite selecionar um dia para reserva.
+- Botão:
+  -  **Ver disponibilidade de salas para o dia selecionado**
+
+---
+
+##  Frame 5 – Seleção de Sala e Horário
+
+<div align="center">
+<sub>Figura 9 - Guia de estilos - Projeto individual_M2</sub>
+<img src="../assets/salasHorarios.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
+
+- Interface de **carrossel** com as salas disponíveis (ex: Sala 1, 2, 3).
+- Exibição de horários disponíveis:
+  - **11:30**
+  - **12:30**
+  - **14:00**
+- Controles de navegação:
+  -  para navegar entre as salas
+- Botão:
+  -  **Confirmar**
+
+---
+
+##  Frame 6 – Tela de Minhas Reservas
+
+<div align="center">
+<sub>Figura 10 - Guia de estilos - Projeto individual_M2</sub>
+<img src="../assets/minhasReservas.png">
+<sup>Fonte: Aluno Vitor Ribeiro, Faculdade Inteli 2025</sup>
+</div>
+
+- Lista das reservas realizadas pelo usuário.
+- Cada item exibe:
+  - **Nome da sala**
+  - **Data e horário da reserva** (ex: `23/02/2025 – 14h30 às 15h`)
+- Ícone de (X) para **exclusão** da reserva
+
+---
+
+ 
+
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
