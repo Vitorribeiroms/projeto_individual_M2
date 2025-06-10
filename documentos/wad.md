@@ -243,7 +243,13 @@ VALUES
 ---
 
 ### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+
+**modelAgendamento**: O `AgendamentoModel` é responsável por gerenciar as operações de CRUD dos agendamentos no banco de dados PostgreSQL, incluindo criação, consulta (por ID, por usuário ou todos), atualização e exclusão. Ele também realiza consultas que juntam dados de usuários e salas para fornecer informações completas, além de verificar conflitos de horário para evitar sobreposições em uma mesma sala, garantindo assim a integridade dos agendamentos no sistema.
+
+**modelSala**: O `SalaModel` gerencia as operações de CRUD para as salas no banco de dados PostgreSQL, permitindo criar, consultar (por ID, número ou todos), atualizar e excluir registros de salas. Além disso, inclui um método para verificar a disponibilidade da sala em determinada data e hora, consultando os agendamentos confirmados para evitar conflitos, garantindo o controle eficaz das salas no sistema.
+
+**userModel**: O `UserModel` gerencia as operações de CRUD para os usuários no banco de dados PostgreSQL, incluindo criação, consulta (por ID, email ou todos), atualização e exclusão de registros. Ele manipula dados essenciais como nome, gênero, idade, email e senha, garantindo o gerenciamento eficiente das informações dos usuários no sistema.
+
 
 ### 3.2. Arquitetura (Semana 5)
 
