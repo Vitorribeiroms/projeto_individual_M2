@@ -1,0 +1,12 @@
+<div class="home-container">
+    <div class="welcome-section">
+        <h1>Bem-vindo, <%= user.nome %>!</h1>
+        <div class="action-buttons">
+            <a href="/reservas" class="btn btn-primary">Minhas Reservas</a>
+            <a href="/reservas/nova" class="btn btn-secondary">+ Reservar Salas</a>
+            <form action="/auth/logout" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-outline">Sair</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,15 @@ router.get('/about', (req, res) => {
   });
 });
 
+router.get('/login', (req, res) => {
+  res.render(path.join(__dirname, '../views/layout/main'), {
+    pageTitle: 'Login',
+    content: path.join(__dirname, '../views/pages/login')
+  });
+});
+
+module.exports = router;
+
 // Adicione outras rotas conforme necessário
 
 module.exports = router;

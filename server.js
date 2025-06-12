@@ -6,6 +6,12 @@ const path = require('path');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use('/css', express.static(path.join(__dirname, 'views/css')));
+app.use('/js', express.static(path.join(__dirname, 'views/js')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
 
 db.connect()
   .then(() => {

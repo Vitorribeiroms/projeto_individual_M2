@@ -1,0 +1,105 @@
+<div class="calendar-container">
+    <h2 class="page-title">Selecione uma Data</h2>
+    
+    <div class="calendar">
+        <div class="calendar-header">
+            <button class="btn-icon" onclick="previousMonth()">&lt;</button>
+            <h3 id="currentMonth">Janeiro 2025</h3>
+            <button class="btn-icon" onclick="nextMonth()">&gt;</button>
+        </div>
+
+        <div class="calendar-weekdays">
+            <span>Dom</span>
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- Calendar days will be inserted here by JavaScript -->
+        </div>
+
+        <div class="calendar-actions">
+            <button class="btn btn-primary" id="btnVerificarDisponibilidade" disabled>
+                Ver disponibilidade de salas para o dia selecionado
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+    
+    function updateCalendar() {
+        const firstDay = new Date(currentYear, currentMonth, 1);
+        const lastDay = new Date(currentYear, currentMonth + 1, 0);
+        const grid = document.getElementById('calendarGrid');
+        const monthDisplay = document.getElementById('currentMonth');
+        
+        // Update month display
+        const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+        monthDisplay.textContent = `${months[currentMonth]} ${currentYear}`;
+        
+        // Clear existing calendar
+        grid.innerHTML = '';
+        
+        // Add empty cells for days before the first of the month
+        for (let i = 0; i < firstDay.getDay(); i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'calendar-day empty';
+            grid.appendChild(emptyCell);
+        }
+        
+        // Add days of the month
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const cell = document.createElement('div');
+            cell.className = 'calendar-day';
+            cell.textContent = day;
+            
+            const date = new Date(currentYear, currentMonth, day);
+            if (date < today) {
+                cell.classList.add('disabled');
+            } else {
+                cell.addEventListener('click', function() {
+                    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                    this.classList.add('selected');
+                    document.getElementById('btnVerificarDisponibilidade').disabled = false;
+                });
+            }
+            
+            grid.appendChild(cell);
+        }
+    }
+    
+    window.previousMonth = function() {
+        if (currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+            return;
+        }
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        updateCalendar();
+    };
+    
+    window.nextMonth = function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        updateCalendar();
+    };
+    
+    // Initialize calendar
+    updateCalendar();
+});
+</script>
