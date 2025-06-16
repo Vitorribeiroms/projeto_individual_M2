@@ -1,105 +1,152 @@
-<div class="calendar-container">
-    <h2 class="page-title">Selecione uma Data</h2>
-    
-    <div class="calendar">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Salas</title>
+    <link rel="stylesheet" href="/css/calendar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="calendar-container">
         <div class="calendar-header">
-            <button class="btn-icon" onclick="previousMonth()">&lt;</button>
-            <h3 id="currentMonth">Janeiro 2025</h3>
-            <button class="btn-icon" onclick="nextMonth()">&gt;</button>
+            <h1>Reserva de Salas</h1>
+            <div class="month-selector">
+                <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                <h2 id="currentMonth">Janeiro 2024</h2>
+                <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </div>
 
-        <div class="calendar-weekdays">
-            <span>Dom</span>
-            <span>Seg</span>
-            <span>Ter</span>
-            <span>Qua</span>
-            <span>Qui</span>
-            <span>Sex</span>
-            <span>Sáb</span>
+        <div class="calendar-grid">
+            <div class="weekdays">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+            <div id="calendar-days" class="days">
+                <!-- Days will be populated by JavaScript -->
+            </div>
         </div>
 
-        <div class="calendar-grid" id="calendarGrid">
-            <!-- Calendar days will be inserted here by JavaScript -->
+        <div id="time-slots" class="time-slots hidden">
+            <h3>Horários Disponíveis</h3>
+            <div class="slots-container">
+                <!-- Time slots will be populated by JavaScript -->
+            </div>
         </div>
 
-        <div class="calendar-actions">
-            <button class="btn btn-primary" id="btnVerificarDisponibilidade" disabled>
-                Ver disponibilidade de salas para o dia selecionado
-            </button>
+        <div id="reservation-summary" class="reservation-summary hidden">
+            <h3>Resumo da Reserva</h3>
+            <div class="summary-details">
+                <p><strong>Data:</strong> <span id="selected-date"></span></p>
+                <p><strong>Horário:</strong> <span id="selected-time"></span></p>
+                <p><strong>Sala:</strong> <span id="selected-room"></span></p>
+            </div>
+            <div class="reservation-actions">
+                <button id="confirm-reservation" class="btn-confirm">Confirmar Reserva</button>
+                <button id="cancel-reservation" class="btn-cancel">Cancelar</button>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date();
-    let currentMonth = today.getMonth();
-    let currentYear = today.getFullYear();
-    
-    function updateCalendar() {
-        const firstDay = new Date(currentYear, currentMonth, 1);
-        const lastDay = new Date(currentYear, currentMonth + 1, 0);
-        const grid = document.getElementById('calendarGrid');
-        const monthDisplay = document.getElementById('currentMonth');
-        
-        // Update month display
-        const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
-                       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-        monthDisplay.textContent = `${months[currentMonth]} ${currentYear}`;
-        
-        // Clear existing calendar
-        grid.innerHTML = '';
-        
-        // Add empty cells for days before the first of the month
-        for (let i = 0; i < firstDay.getDay(); i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'calendar-day empty';
-            grid.appendChild(emptyCell);
-        }
-        
-        // Add days of the month
-        for (let day = 1; day <= lastDay.getDate(); day++) {
-            const cell = document.createElement('div');
-            cell.className = 'calendar-day';
-            cell.textContent = day;
-            
-            const date = new Date(currentYear, currentMonth, day);
-            if (date < today) {
-                cell.classList.add('disabled');
-            } else {
-                cell.addEventListener('click', function() {
-                    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
-                    this.classList.add('selected');
-                    document.getElementById('btnVerificarDisponibilidade').disabled = false;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarDays = document.getElementById('calendar-days');
+            const timeSlots = document.getElementById('time-slots');
+            const reservationSummary = document.getElementById('reservation-summary');
+            const selectedDateSpan = document.getElementById('selected-date');
+            const selectedTimeSpan = document.getElementById('selected-time');
+            const selectedRoomSpan = document.getElementById('selected-room');
+
+            // Sample available time slots (in a real application, these would come from the server)
+            const availableTimeSlots = [
+                '08:00', '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'
+            ];
+
+            // Generate calendar days
+            function generateCalendarDays() {
+                const daysInMonth = 31; // This should be calculated based on the current month
+                calendarDays.innerHTML = '';
+                
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'day';
+                    dayElement.textContent = i;
+                    dayElement.addEventListener('click', () => selectDate(i));
+                    calendarDays.appendChild(dayElement);
+                }
+            }
+
+            // Handle date selection
+            function selectDate(day) {
+                // Clear previous selections
+                document.querySelectorAll('.day.selected').forEach(el => el.classList.remove('selected'));
+                
+                // Add selected class to clicked day
+                event.target.classList.add('selected');
+                
+                // Show time slots
+                timeSlots.classList.remove('hidden');
+                reservationSummary.classList.add('hidden');
+                
+                // Populate time slots
+                const slotsContainer = timeSlots.querySelector('.slots-container');
+                slotsContainer.innerHTML = '';
+                
+                availableTimeSlots.forEach(time => {
+                    const slot = document.createElement('div');
+                    slot.className = 'time-slot';
+                    slot.textContent = time;
+                    slot.addEventListener('click', () => selectTimeSlot(day, time));
+                    slotsContainer.appendChild(slot);
                 });
             }
-            
-            grid.appendChild(cell);
-        }
-    }
-    
-    window.previousMonth = function() {
-        if (currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-            return;
-        }
-        currentMonth--;
-        if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
-        }
-        updateCalendar();
-    };
-    
-    window.nextMonth = function() {
-        currentMonth++;
-        if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
-        }
-        updateCalendar();
-    };
-    
-    // Initialize calendar
-    updateCalendar();
-});
-</script>
+
+            // Handle time slot selection
+            function selectTimeSlot(day, time) {
+                // Clear previous selections
+                document.querySelectorAll('.time-slot.selected').forEach(el => el.classList.remove('selected'));
+                
+                // Add selected class to clicked time slot
+                event.target.classList.add('selected');
+                
+                // Show reservation summary
+                reservationSummary.classList.remove('hidden');
+                
+                // Update summary details
+                selectedDateSpan.textContent = `${day}/01/2024`; // This should use the actual month/year
+                selectedTimeSpan.textContent = time;
+                selectedRoomSpan.textContent = 'Sala 101'; // This should be dynamic based on available rooms
+            }
+
+            // Handle reservation confirmation
+            document.getElementById('confirm-reservation').addEventListener('click', function() {
+                // Here you would typically send the reservation to the server
+                alert('Reserva confirmada com sucesso!');
+                resetSelection();
+            });
+
+            // Handle reservation cancellation
+            document.getElementById('cancel-reservation').addEventListener('click', function() {
+                resetSelection();
+            });
+
+            // Reset selection
+            function resetSelection() {
+                document.querySelectorAll('.day.selected').forEach(el => el.classList.remove('selected'));
+                document.querySelectorAll('.time-slot.selected').forEach(el => el.classList.remove('selected'));
+                timeSlots.classList.add('hidden');
+                reservationSummary.classList.add('hidden');
+            }
+
+            // Initialize calendar
+            generateCalendarDays();
+        });
+    </script>
+</body>
+</html>

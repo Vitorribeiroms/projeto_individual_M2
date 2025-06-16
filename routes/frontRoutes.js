@@ -24,8 +24,13 @@ router.get('/login', (req, res) => {
   });
 });
 
+router.get('/calendar', (req, res) => {
+  res.render(path.join(__dirname, '../views/layout/main'), {
+    pageTitle: 'calendar',
+    content: path.join(__dirname, '../views/pages/calendar')
+  });
+});
+
 module.exports = router;
 
-// Adicione outras rotas conforme necessário
 
-module.exports = router;

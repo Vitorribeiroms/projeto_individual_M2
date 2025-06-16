@@ -1,0 +1,437 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Calendar Container */
+.calendar-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Calendar Header */
+.calendar-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f2f5;
+}
+
+.calendar-header h1 {
+    color: #FF9046;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.month-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.month-selector button {
+    background: #FFB246;
+    border: none;
+    font-size: 1.4rem;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.month-selector button:hover {
+    background: #FF9046;
+    transform: translateY(-2px);
+}
+
+.month-selector h2 {
+    color: #1C1C1C;
+    font-size: 1.5rem;
+    min-width: 200px;
+    font-weight: 600;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    margin-bottom: 2rem;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.weekdays div {
+    text-align: center;
+    font-weight: 600;
+    color: #666;
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    background: #f8f8f8;
+    border-radius: 6px;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+    color: #1C1C1C;
+    font-weight: 500;
+    position: relative;
+}
+
+.day:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day.selected {
+    background-color: #FFB246;
+    color: white;
+    font-weight: 600;
+    border-color: #FF9046;
+}
+
+/* Time Slots */
+.time-slots {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.time-slots.hidden {
+    display: none;
+}
+
+.time-slots h3 {
+    color: #1C1C1C;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.slots-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.time-slot {
+    padding: 1rem;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    color: #1C1C1C;
+}
+
+.time-slot:hover {
+    background-color: #FFB246;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.time-slot.selected {
+    background-color: #FF9046;
+    color: white;
+    border-color: #FF9046;
+    font-weight: 600;
+}
+
+/* Reservation Summary */
+.reservation-summary {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.reservation-summary.hidden {
+    display: none;
+}
+
+.reservation-summary h3 {
+    color: #1C1C1C;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.summary-details {
+    margin-bottom: 2rem;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.summary-details p {
+    margin: 1rem 0;
+    color: #1C1C1C;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-details strong {
+    color: #666;
+    font-weight: 600;
+}
+
+.reservation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.btn-confirm, .btn-cancel {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    min-width: 180px;
+}
+
+.btn-confirm {
+    background-color: #FFB246;
+    color: white;
+}
+
+.btn-confirm:hover {
+    background-color: #FF9046;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .calendar-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .calendar-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .month-selector h2 {
+        font-size: 1.2rem;
+        min-width: 150px;
+    }
+
+    .day {
+        font-size: 0.9rem;
+    }
+
+    .slots-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+
+    .reservation-actions {
+        flex-direction: column;
+    }
+
+    .btn-confirm, .btn-cancel {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-container {
+        padding: 1rem;
+    }
+
+    .weekdays div {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.3rem;
+    }
+
+    .day {
+        font-size: 0.8rem;
+    }
+
+    .slots-container {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+    .time-slot {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .summary-details p {
+        font-size: 1rem;
+    }
+}
+
+.calendar-table-wrapper {
+    margin-bottom: 2rem;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    table-layout: fixed;
+}
+
+.calendar-table th, .calendar-table td {
+    border: 1px solid #222;
+    width: 14.28%;
+    height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    background: #fff;
+    color: #222;
+    padding: 0;
+}
+
+.calendar-table th {
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: capitalize;
+    background: #fff;
+    color: #222;
+    padding: 0.5rem 0;
+}
+
+.calendar-day-cell {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.calendar-day-cell.selected {
+    background: #FFB246;
+    color: #fff;
+}
+
+.calendar-day-cell.disabled {
+    color: #bbb;
+    cursor: not-allowed;
+    background: #fafafa;
+}
+
+.calendar-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.calendar-nav-btn {
+    background: #FFB246;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255,178,70,0.10);
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-nav-btn:hover {
+    background: #FF9046;
+    transform: scale(1.08);
+}
+
+.calendar-current-month {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1C1C1C;
+    letter-spacing: 1px;
+    background: #fffbe6;
+    padding: 0.4rem 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(255,178,70,0.08);
+}
+
+@media (max-width: 600px) {
+    .calendar-table th, .calendar-table td {
+        font-size: 0.8rem;
+        height: 32px;
+        padding: 0;
+    }
+    .calendar-container {
+        padding: 0.5rem;
+    }
+    .calendar-current-month {
+        font-size: 1rem;
+        padding: 0.2rem 0.5rem;
+    }
+} 
