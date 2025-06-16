@@ -54,8 +54,76 @@
         </div>
     </div>
 
+    <div id="popup-confirm" class="popup-confirm hidden">
+        <div class="popup-content">
+            <h2>Reserva confirmada!</h2>
+            <canvas id="confetti-canvas"></canvas>
+            <button id="btn-voltar" class="btn-confirmar hidden">Voltar ao início</button>
+        </div>
+    </div>
+
+    <style>
+    .popup-confirm {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+    .popup-confirm.hidden { display: none; }
+    .popup-content {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        padding: 2.5rem 2rem 2rem 2rem;
+        text-align: center;
+        min-width: 320px;
+        position: relative;
+    }
+    .popup-content h2 {
+        color: #4CAF50;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+    }
+    #confetti-canvas {
+        position: absolute;
+        left: 0; top: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+    #btn-voltar {
+        margin-top: 2.5rem;
+        background: #FFB246;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 0.9rem 2.5rem;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 8px rgba(255, 144, 70, 0.08);
+        z-index: 2;
+    }
+    #btn-voltar:hover {
+        background: #FF9046;
+        transform: translateY(-2px) scale(1.04);
+    }
+    </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Função para obter parâmetro da URL
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            const salaSelecionada = getQueryParam('sala') || 'Sala 101';
             const calendarDays = document.getElementById('calendar-days');
             const timeSlots = document.getElementById('time-slots');
             const reservationSummary = document.getElementById('reservation-summary');
@@ -161,7 +229,7 @@
                 const year = currentDate.getFullYear();
                 selectedDateSpan.textContent = `${day}/${month + 1}/${year}`;
                 selectedTimeSpan.textContent = time;
-                selectedRoomSpan.textContent = 'Sala 101'; // This should be dynamic based on available rooms
+                selectedRoomSpan.textContent = salaSelecionada;
             }
 
             // Handle month navigation
@@ -177,10 +245,70 @@
 
             // Handle reservation confirmation
             document.getElementById('confirm-reservation').addEventListener('click', function() {
-                // Here you would typically send the reservation to the server
-                alert('Reserva confirmada com sucesso!');
-                resetSelection();
+                // Exibe popup de confirmação
+                document.getElementById('popup-confirm').classList.remove('hidden');
+                startConfetti();
+                setTimeout(() => {
+                    document.getElementById('btn-voltar').classList.remove('hidden');
+                }, 1800);
             });
+
+            document.getElementById('btn-voltar').addEventListener('click', function() {
+                window.location.href = '/';
+            });
+
+            // Confete simples em canvas
+            function startConfetti() {
+                const canvas = document.getElementById('confetti-canvas');
+                const ctx = canvas.getContext('2d');
+                let W = 320, H = 220;
+                function resize() {
+                    W = canvas.width = canvas.offsetWidth;
+                    H = canvas.height = canvas.offsetHeight;
+                }
+                resize();
+                window.addEventListener('resize', resize);
+                const confettiColors = ['#FFB246','#FF9046','#4CAF50','#FFD700','#FF5E5E','#6EC1E4'];
+                const confetti = Array.from({length: 40}, () => ({
+                    x: Math.random()*W,
+                    y: Math.random()*-H,
+                    r: 6+Math.random()*8,
+                    d: 2+Math.random()*2,
+                    color: confettiColors[Math.floor(Math.random()*confettiColors.length)],
+                    tilt: Math.random()*10-5
+                }));
+                let frame = 0;
+                function draw() {
+                    ctx.clearRect(0,0,W,H);
+                    confetti.forEach(c => {
+                        ctx.beginPath();
+                        ctx.ellipse(c.x, c.y, c.r, c.r*0.5, c.tilt, 0, 2*Math.PI);
+                        ctx.fillStyle = c.color;
+                        ctx.fill();
+                    });
+                    update();
+                }
+                function update() {
+                    frame++;
+                    confetti.forEach(c => {
+                        c.y += c.d;
+                        c.x += Math.sin(frame/10 + c.tilt);
+                        c.tilt += 0.02;
+                        if (c.y > H+20) {
+                            c.y = Math.random()*-20;
+                            c.x = Math.random()*W;
+                        }
+                    });
+                }
+                let running = true;
+                function animate() {
+                    if (!running) return;
+                    draw();
+                    requestAnimationFrame(animate);
+                }
+                animate();
+                setTimeout(()=>{running=false;ctx.clearRect(0,0,W,H);}, 2000);
+            }
 
             // Handle reservation cancellation
             document.getElementById('cancel-reservation').addEventListener('click', function() {

@@ -1,29 +1,42 @@
-<div class="auth-container">
-    <form class="auth-form" action="/auth/login" method="POST">
-        <div class="form-logo">
-            <img src="/assets/favicon.ico" alt="REVEX Logo" class="logo">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="login-page">
+    <div class="left-side">
+        <img src="/assets/Logo-revex.png" alt="Logo REVEX">
+    </div>
+    <div class="right-side">
+        <div class="top-bar">
+            <a href="/" class="voltar-link">VOLTAR</a>
         </div>
-        
-        <div class="form-group">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" id="email" name="email" class="form-input" required>
+        <div class="form-container">
+            <h2>Entrar</h2>
+            <p>Entre para acessar a plataforma</p>
+            <form action="/auth/login" method="POST">
+                <div class="input-group">
+                    <img src="/assets/favicon.ico" alt="Email">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <img src="/assets/favicon.ico" alt="Senha">
+                    <input type="password" name="senha" placeholder="Senha" required>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" name="manter_logado" id="manter_logado">
+                    <label for="manter_logado">Lembrar-me</label>
+                </div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+            <div class="divider"></div>
+            <a href="/auth/registro" class="signup-link">Cadastre-se</a>
         </div>
-
-        <div class="form-group">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" id="senha" name="senha" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label class="checkbox-label">
-                <input type="checkbox" name="manter_logado"> Manter-me logado
-            </label>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Entrar</button>
-
-        <div class="form-footer">
-            <p>Não tem uma conta? <a href="/auth/registro">Cadastrar-se</a></p>
-        </div>
-    </form>
+    </div>
 </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecione a Sala</title>
+    <link rel="stylesheet" href="/css/room-carousel.css">
+</head>
+<body>
+    <header class="header-bar">
+        <a href="/" class="icon-back" title="Voltar">&#8592;</a>
+        <span class="logo">&#x1F5C3;</span>
+        <a href="/" class="icon-home" title="Home">&#8962;</a>
+    </header>
+    <main>
+        <h2 class="room-title">Selecione sala</h2>
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left" id="arrowLeft">&#x25C0;&#x25C0;&#x25C0;</button>
+            <div class="carousel" id="carousel">
+                <!-- Salas serão inseridas via JS -->
+            </div>
+            <button class="carousel-arrow right" id="arrowRight">&#x25B6;&#x25B6;&#x25B6;</button>
+        </div>
+        <form action="/calendar" method="get" id="roomForm">
+            <input type="hidden" name="sala" id="salaSelecionada">
+            <button type="submit" class="btn-confirmar" id="btnConfirmar" disabled>CONFIRMAR</button>
+        </form>
+    </main>
+    <script>
+        // 7 salas
+        const salas = [
+            { id: 1, nome: '1' },
+            { id: 2, nome: '2' },
+            { id: 3, nome: '3' },
+            { id: 4, nome: '4' },
+            { id: 5, nome: '5' },
+            { id: 6, nome: '6' },
+            { id: 7, nome: '7' }
+        ];
+        // O índice do centro da janela
+        let current = 1; // começa na sala 2 (índice 1)
+        // Quantas salas mostrar (sempre 3)
+        const windowSize = 3;
+
+        function renderCarousel() {
+            const carousel = document.getElementById('carousel');
+            carousel.innerHTML = '';
+            // Calcular o início da janela
+            let start = current - 1;
+            if (start < 0) start = 0;
+            if (start > salas.length - windowSize) start = salas.length - windowSize;
+            // Renderizar apenas as 3 salas visíveis
+            for (let i = start; i < start + windowSize; i++) {
+                const div = document.createElement('div');
+                div.className = 'room-card' + (i === current ? ' active' : ' side');
+                div.textContent = salas[i].nome;
+                div.dataset.id = salas[i].id;
+                div.onclick = () => selectRoom(i);
+                carousel.appendChild(div);
+            }
+        }
+
+        function selectRoom(idx) {
+            current = idx;
+            renderCarousel();
+            document.getElementById('btnConfirmar').disabled = false;
+            document.getElementById('salaSelecionada').value = salas[current].id;
+        }
+
+        document.getElementById('arrowLeft').onclick = function() {
+            if (current > 0) {
+                current--;
+                renderCarousel();
+                document.getElementById('btnConfirmar').disabled = false;
+                document.getElementById('salaSelecionada').value = salas[current].id;
+            }
+        };
+        document.getElementById('arrowRight').onclick = function() {
+            if (current < salas.length - 1) {
+                current++;
+                renderCarousel();
+                document.getElementById('btnConfirmar').disabled = false;
+                document.getElementById('salaSelecionada').value = salas[current].id;
+            }
+        };
+
+        // Inicialização
+        renderCarousel();
+        // Seleciona a sala central por padrão
+        selectRoom(current);
+    </script>
+</body>
+</html> 

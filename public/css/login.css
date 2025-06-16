@@ -1,0 +1,275 @@
+:root {
+    --primary-color: #FFA940; /* Laranja */
+    --text-color: #000000;
+    --muted-color: #D9D9D9;
+    --muted-text: #888888;
+    --border-radius: 8px;
+    --font-family: 'Segoe UI', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body, html {
+    height: 100%;
+    background-color: #fff;
+}
+
+.login-page {
+    display: flex;
+    height: 100vh;
+}
+
+/* Lado esquerdo com logo */
+.left-side {
+    width: 50%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-right: 1px solid #eee;
+    height: 100vh;
+}
+
+.left-side img {
+    max-width: 90%;
+    max-height: 70vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 30px;
+    margin-top: 0;
+    flex: 1 1 auto;
+    display: block;
+}
+
+.left-side h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 0;
+    color: var(--text-color);
+    letter-spacing: 2px;
+}
+
+.left-side p {
+    font-size: 1.2rem;
+    color: var(--muted-text);
+    letter-spacing: 6px;
+    margin-top: 0.5rem;
+}
+
+/* Lado direito com formulário */
+.right-side {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    position: relative;
+}
+
+.top-bar {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+}
+
+.top-bar .voltar-link {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.form-container {
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-container h2 {
+    font-size: 24px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.form-container p {
+    font-size: 14px;
+    color: var(--muted-text);
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--muted-color);
+    border-radius: var(--border-radius);
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+}
+
+.input-group img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+}
+
+/* Checkbox */
+.remember-me {
+    font-size: 14px;
+    color: var(--muted-text);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Botão Entrar */
+.btn-login {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 14px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+/* Divider e link de cadastro */
+.divider {
+    border-top: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.signup-link {
+    text-align: center;
+    display: block;
+    color: var(--primary-color);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .login-page {
+        flex-direction: column;
+    }
+    .left-side, .right-side {
+        width: 100%;
+        padding: 30px;
+        border: none;
+        height: auto;
+    }
+    .left-side img {
+        max-width: 60vw;
+        max-height: 30vh;
+        margin-bottom: 20px;
+    }
+}
+
+/* --- Estilo compatível com login.ejs atual --- */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+.auth-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 2.5rem 2rem 2rem 2rem;
+    width: 100%;
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.form-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+.form-logo .logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.form-label {
+    font-size: 1rem;
+    color: #222;
+    font-weight: 600;
+}
+.form-input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s;
+}
+.form-input:focus {
+    border-color: #FFA940;
+}
+.checkbox-label {
+    font-size: 0.97rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.btn.btn-primary {
+    background: #FFA940;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.9rem 0;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(255, 144, 70, 0.08);
+}
+.btn.btn-primary:hover {
+    background: #FF9046;
+    transform: translateY(-2px) scale(1.04);
+}
+.form-footer {
+    text-align: center;
+    font-size: 0.97rem;
+    color: #888;
+    margin-top: 0.5rem;
+}
+.form-footer a {
+    color: #FFA940;
+    text-decoration: none;
+    font-weight: 600;
+}
+@media (max-width: 600px) {
+    .auth-form {
+        padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+        max-width: 98vw;
+    }
+} 

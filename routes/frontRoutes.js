@@ -64,6 +64,10 @@ router.get('/minhas-reservas', async (req, res) => {
   }
 });
 
+router.get('/room-carousel', (req, res) => {
+  res.render('pages/room-carousel');
+});
+
 module.exports = router;
 
 

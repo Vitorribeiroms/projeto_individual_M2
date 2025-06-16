@@ -1,0 +1,165 @@
+body {
+    background: #fff;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.header-bar {
+    width: 100%;
+    background: #FFB246;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem;
+    box-sizing: border-box;
+    height: 48px;
+}
+.icon-back, .icon-home {
+    color: #222;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+.logo {
+    font-size: 2rem;
+    color: #222;
+    font-weight: bold;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.room-title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    color: #222;
+}
+
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+.carousel-arrow {
+    background: none;
+    border: none;
+    color: #FF9046;
+    font-size: 2.2rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    padding: 0 0.5rem;
+    outline: none;
+    user-select: none;
+}
+.carousel-arrow:active {
+    color: #FFB246;
+    transform: scale(1.1);
+}
+
+.carousel {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2.5rem;
+    width: 500px;
+    min-height: 260px;
+}
+
+.room-card {
+    width: 110px;
+    height: 180px;
+    background: #fff;
+    border: 3px solid #222;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #111;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    opacity: 0.7;
+    background-clip: padding-box;
+}
+.room-card.side {
+    transform: scale(0.85) translateY(18px);
+    border-color: #FFB246;
+    opacity: 0.5;
+    z-index: 0;
+}
+.room-card.active {
+    border: 5px solid #222;
+    box-shadow: 0 4px 24px rgba(255, 144, 70, 0.12);
+    background: #fff;
+    color: #111;
+    transform: scale(1.1);
+    opacity: 1;
+    z-index: 2;
+}
+.room-card:hover {
+    border-color: #FF9046;
+}
+
+.btn-confirmar {
+    margin-top: 2.5rem;
+    background: #FFB246;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.9rem 2.5rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(255, 144, 70, 0.08);
+}
+.btn-confirmar:disabled {
+    background: #ffe0b2;
+    color: #aaa;
+    cursor: not-allowed;
+}
+.btn-confirmar:not(:disabled):hover {
+    background: #FF9046;
+    transform: translateY(-2px) scale(1.04);
+}
+
+@media (max-width: 700px) {
+    .carousel {
+        width: 95vw;
+        gap: 1.2rem;
+    }
+    .room-card {
+        width: 80px;
+        height: 120px;
+        font-size: 2.2rem;
+    }
+}
+@media (max-width: 480px) {
+    .carousel {
+        min-height: 120px;
+    }
+    .room-title {
+        font-size: 1.1rem;
+    }
+    .btn-confirmar {
+        width: 100%;
+        padding: 1rem 0;
+    }
+} 
