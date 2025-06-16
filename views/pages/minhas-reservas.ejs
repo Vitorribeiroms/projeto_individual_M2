@@ -1,51 +1,62 @@
-<div class="reservations-container">
-    <div class="page-header">
-        <h2 class="page-title">Minhas Reservas</h2>
-        <a href="/reservas/nova" class="btn btn-primary">+ Nova Reserva</a>
-    </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Reservas</title>
+    <link rel="stylesheet" href="/css/minhas-reservas.css">
+</head>
+<body>
+    <div class="reservations-container">
+        <div class="page-header">
+            <h2 class="page-title">Minhas Reservas</h2>
+            <a href="/reservas/nova" class="btn btn-primary">+ Nova Reserva</a>
+        </div>
 
-    <div class="booking-list">
-        <% if (reservas && reservas.length > 0) { %>
-            <% reservas.forEach(reserva => { %>
-                <div class="booking-item">
-                    <div class="booking-info">
-                        <h3>Sala <%= reserva.numero_sala %></h3>
-                        <p><%= new Date(reserva.data).toLocaleDateString('pt-BR') %> - <%= reserva.hora %></p>
+        <div class="booking-list">
+            <% if (reservas && reservas.length > 0) { %>
+                <% reservas.forEach(reserva => { %>
+                    <div class="booking-item">
+                        <div class="booking-info">
+                            <h3>Sala <%= reserva.numero_sala %></h3>
+                            <p><%= new Date(reserva.data).toLocaleDateString('pt-BR') %> - <%= reserva.hora %></p>
+                        </div>
+                        <button class="delete-booking" onclick="cancelarReserva('<%= reserva.id %>')" aria-label="Cancelar reserva">
+                            ✕
+                        </button>
                     </div>
-                    <button class="delete-booking" onclick="cancelarReserva('<%= reserva.id %>')" aria-label="Cancelar reserva">
-                        ✕
-                    </button>
+                <% }); %>
+            <% } else { %>
+                <div class="empty-state">
+                    <p>Você ainda não tem reservas.</p>
+                    <a href="/reservas/nova" class="btn btn-secondary">Fazer uma reserva</a>
                 </div>
-            <% }); %>
-        <% } else { %>
-            <div class="empty-state">
-                <p>Você ainda não tem reservas.</p>
-                <a href="/reservas/nova" class="btn btn-secondary">Fazer uma reserva</a>
-            </div>
-        <% } %>
+            <% } %>
+        </div>
     </div>
-</div>
 
-<script>
-function cancelarReserva(id) {
-    if (confirm('Tem certeza que deseja cancelar esta reserva?')) {
-        fetch(`/api/reservas/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.reload();
-            } else {
+    <script>
+    function cancelarReserva(id) {
+        if (confirm('Tem certeza que deseja cancelar esta reserva?')) {
+            fetch(`/api/reservas/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Erro ao cancelar a reserva. Por favor, tente novamente.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
                 alert('Erro ao cancelar a reserva. Por favor, tente novamente.');
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Erro ao cancelar a reserva. Por favor, tente novamente.');
-        });
+            });
+        }
     }
-}
-</script>
+    </script>
+</body>
+</html>
