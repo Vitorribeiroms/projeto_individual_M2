@@ -68,6 +68,12 @@ router.get('/room-carousel', (req, res) => {
   res.render('pages/room-carousel');
 });
 
+router.get('/registro', (req, res) => {
+  res.render(path.join(__dirname, '../views/layout/main'), {
+    pageTitle: 'Registro de usuarios',
+    content: path.join(__dirname, '../views/pages/registro')
+  });
+});
 module.exports = router;
 
 

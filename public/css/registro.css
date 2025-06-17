@@ -1,0 +1,143 @@
+body {
+    background: #fff;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.header-bar {
+    width: 100%;
+    background: #FFB246;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+    box-sizing: border-box;
+    height: 48px;
+}
+.icon-back {
+    color: #222;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+.logo {
+    font-size: 2rem;
+    color: #222;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+.register-main {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.register-title {
+    align-self: flex-start;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #222;
+}
+.register-avatar {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+.avatar-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2px solid #222;
+    background: #fff;
+    object-fit: cover;
+    display: block;
+}
+.avatar-edit {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    background: #fff;
+    border: 2px solid #FFB246;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    color: #FFB246;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.register-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+}
+.register-form label {
+    font-size: 0.95rem;
+    color: #888;
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+    margin-top: 0.5rem;
+}
+.register-form input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fafafa;
+    outline: none;
+    transition: border 0.2s;
+}
+.register-form input:focus {
+    border-color: #FFB246;
+}
+.btn-cadastrar {
+    margin-top: 1.5rem;
+    background: #FFB246;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.9rem 0;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(255, 144, 70, 0.08);
+}
+.btn-cadastrar:hover {
+    background: #FF9046;
+    transform: translateY(-2px) scale(1.04);
+}
+.btn-sair {
+    margin-top: 1.2rem;
+    background: #fff;
+    color: #FF9046;
+    border: 2px solid #FFB246;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.9rem 0;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    letter-spacing: 1px;
+}
+.btn-sair:hover {
+    background: #FFF3E0;
+    color: #FFB246;
+    border-color: #FF9046;
+}
+@media (max-width: 600px) {
+    .register-main {
+        padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+        max-width: 98vw;
+    }
+    .avatar-img {
+        width: 100px;
+        height: 100px;
+    }
+} 

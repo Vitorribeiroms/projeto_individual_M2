@@ -37,24 +37,3 @@ CREATE TABLE IF NOT EXISTS agendamentos (
     CONSTRAINT fk_sala FOREIGN KEY (id_sala) REFERENCES salas(id) ON DELETE CASCADE,
     CONSTRAINT unique_sala_data_hora UNIQUE (id_sala, data, hora)
 );
-
--- Inserir dados de teste na tabela de usuários
-INSERT INTO usuarios (nome, genero, idade, email, senha)
-VALUES 
-    ('Miguel Bueno Soares', 'Masculino', 22, 'miguel.soares@email.com', 'senha123'),
-    ('Alice Smith', 'Feminino', 25, 'alice.smith@email.com', 'senha456'),
-    ('Carol Williams', 'Feminino', 28, 'carol.williams@email.com', 'senha789');
-
--- Inserir dados de teste na tabela de salas
-INSERT INTO salas (numero, capacidade, descricao)
-VALUES 
-    ('101', 6, 'Sala de estudo pequena - 1º andar'),
-    ('102', 8, 'Sala de estudo média - 1º andar'),
-    ('201', 12, 'Sala de reunião grande - 2º andar'),
-    ('202', 4, 'Sala de estudo individual - 2º andar');
-
--- Inserir dados de teste na tabela de agendamentos
-INSERT INTO agendamentos (data, hora, id_usuario, id_sala)
-VALUES 
-    (CURRENT_DATE, '09:00:00', (SELECT id FROM usuarios WHERE email = 'miguel.soares@email.com'), (SELECT id FROM salas WHERE numero = '101')),
-    (CURRENT_DATE, '14:00:00', (SELECT id FROM usuarios WHERE email = 'alice.smith@email.com'), (SELECT id FROM salas WHERE numero = '201'));

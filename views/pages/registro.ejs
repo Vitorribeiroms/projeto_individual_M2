@@ -1,35 +1,56 @@
-<div class="auth-container">
-    <form class="auth-form" action="/auth/registro" method="POST">
-        <div class="form-avatar">
-            <img src="/assets/default-avatar.png" alt="Avatar" class="avatar-preview">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/css/registro.css">
+</head>
+<body>
+    <header class="header-bar">
+        <a href="/" class="icon-back" title="Voltar">&#8592;</a>
+        <span class="logo">&#x1F5C3;</span>
+    </header>
+    <main class="register-main">
+        <h2 class="register-title">Cadastro</h2>
+        <div class="register-avatar">
+            <img src="/assets/default-avatar.png" alt="Avatar" class="avatar-img" id="avatarPreview">
+            <span class="avatar-edit" id="avatarEdit">&#9998;</span>
+            <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display:none">
         </div>
-
-        <div class="form-group">
-            <label for="nome" class="form-label">Nome</label>
-            <input type="text" id="nome" name="nome" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" id="email" name="email" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="telefone" class="form-label">Telefone</label>
-            <input type="tel" id="telefone" name="telefone" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="matricula" class="form-label">Matrícula</label>
-            <input type="text" id="matricula" name="matricula" class="form-input" required>
-        </div>
-
-        <div class="form-group">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" id="senha" name="senha" class="form-input" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Cadastrar-se</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='/auth/login'">Voltar</button>
-    </form>
-</div>
+        <form class="register-form" action="/auth/registro" method="POST" enctype="multipart/form-data">
+            <label for="nome">NOME</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome sobrenome" required>
+            <label for="idade">IDADE</label>
+            <input type="number" id="idade" name="idade" min="1" max="120" required>
+            <label for="genero">GÊNERO</label>
+            <input type="text" id="genero" name="genero" required>
+            <label for="email">EMAIL</label>
+            <input type="email" id="email" name="email" required>
+            <label for="senha">SENHA</label>
+            <input type="password" id="senha" name="senha" required>
+            <button type="submit" class="btn-cadastrar">CADASTRAR</button>
+            <button type="button" class="btn-sair" onclick="window.location.href='/auth/login'">SAIR</button>
+        </form>
+    </main>
+    <script>
+    // Avatar upload e preview
+    const avatarEdit = document.getElementById('avatarEdit');
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    avatarEdit.addEventListener('click', function() {
+        avatarInput.click();
+    });
+    avatarInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                avatarPreview.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    </script>
+</body>
+</html>
