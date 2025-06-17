@@ -274,12 +274,12 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Exibe popup de confirmação
-                        document.getElementById('popup-confirm').classList.remove('hidden');
-                        startConfetti();
-                        setTimeout(() => {
-                            document.getElementById('btn-voltar').classList.remove('hidden');
-                        }, 1800);
+                // Exibe popup de confirmação
+                document.getElementById('popup-confirm').classList.remove('hidden');
+                startConfetti();
+                setTimeout(() => {
+                    document.getElementById('btn-voltar').classList.remove('hidden');
+                }, 1800);
                     } else {
                         alert(data.error || 'Erro ao criar reserva');
                     }

@@ -15,12 +15,45 @@ CREATE TABLE IF NOT EXISTS usuarios (
 
 -- Criar tabela de salas
 CREATE TABLE IF NOT EXISTS salas (
+<<<<<<< HEAD
+    id SERIAL PRIMARY KEY,
+    numero_sala VARCHAR(20) NOT NULL UNIQUE,
+    capacidade INTEGER,
+    descricao TEXT,
+    status VARCHAR(20) DEFAULT 'disponivel',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+=======
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   numero VARCHAR(20) NOT NULL
+>>>>>>> parent of 3e7ad0e (feat: adicionar banco de dados ao init.sql)
 );
 
 -- Criar tabela de agendamentos
 CREATE TABLE IF NOT EXISTS agendamentos (
+<<<<<<< HEAD
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    data DATE NOT NULL,
+    hora TIME NOT NULL,
+    usuario_id UUID NOT NULL,
+    sala_id INTEGER NOT NULL,
+    status VARCHAR(20) DEFAULT 'confirmado',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    CONSTRAINT fk_sala FOREIGN KEY (sala_id) REFERENCES salas(id) ON DELETE CASCADE,
+    CONSTRAINT unique_sala_data_hora UNIQUE (sala_id, data, hora)
+);
+
+-- Inserir salas iniciais
+INSERT INTO salas (numero_sala, capacidade, descricao) VALUES
+('1', 20, 'Sala de reunião pequena'),
+('2', 30, 'Sala de reunião média'),
+('3', 40, 'Sala de reunião grande'),
+('4', 25, 'Sala de treinamento'),
+('5', 35, 'Sala de apresentação'),
+('6', 15, 'Sala de entrevista'),
+('7', 50, 'Auditório pequeno')
+ON CONFLICT (numero_sala) DO NOTHING;
+=======
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   data DATE NOT NULL,
   hora TIME NOT NULL,
@@ -48,3 +81,4 @@ VALUES
 -- (obs: para usar esses INSERTs, primeiro recupere os UUIDs reais das tabelas 'salas' e 'usuarios' ou ajuste conforme necessário)
 -- Exemplo genérico, deve ser adaptado:
 -- INSERT INTO agendamentos (data, hora, id_sala, id_usuario) VALUES ('2025-06-01', '09:00:00', 'uuid_sala', 'uuid_usuario');
+>>>>>>> parent of 3e7ad0e (feat: adicionar banco de dados ao init.sql)
