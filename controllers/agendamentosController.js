@@ -1,7 +1,7 @@
 const Agendamento = require('../models/modelAgendamentos');
 
 class AgendamentosController {
-  
+  // Get all schedules
   static async getAllAgendamentos(req, res) {
     try {
       const agendamentos = await Agendamento.getAll();
