@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva de Salas</title>
     <link rel="stylesheet" href="/css/calendar.css">
+    <link rel="stylesheet" href="/css/messages.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <header class="header-bar">
+        <a href="/room-carousel" class="icon-back" title="Voltar">&#8592;</a>
+        <span class="logo">&#x1F5C3;</span>
+        <a href="/home" class="icon-home" title="Home">&#8962;</a>
+    </header>
+
     <div class="calendar-container">
         <div class="calendar-header">
             <h1>Reserva de Salas</h1>
@@ -123,7 +130,7 @@
                 return urlParams.get(param);
             }
 
-            const salaSelecionada = getQueryParam('sala') || 'Sala 101';
+            const salaSelecionada = getQueryParam('sala') || '1';
             const calendarDays = document.getElementById('calendar-days');
             const timeSlots = document.getElementById('time-slots');
             const reservationSummary = document.getElementById('reservation-summary');
@@ -229,7 +236,7 @@
                 const year = currentDate.getFullYear();
                 selectedDateSpan.textContent = `${day}/${month + 1}/${year}`;
                 selectedTimeSpan.textContent = time;
-                selectedRoomSpan.textContent = salaSelecionada;
+                selectedRoomSpan.textContent = `Sala ${salaSelecionada}`;
             }
 
             // Handle month navigation
@@ -245,16 +252,46 @@
 
             // Handle reservation confirmation
             document.getElementById('confirm-reservation').addEventListener('click', function() {
-                // Exibe popup de confirmação
-                document.getElementById('popup-confirm').classList.remove('hidden');
-                startConfetti();
-                setTimeout(() => {
-                    document.getElementById('btn-voltar').classList.remove('hidden');
-                }, 1800);
+                const selectedDate = selectedDateSpan.textContent;
+                const selectedTime = selectedTimeSpan.textContent;
+                
+                // Formatar data para o formato do banco (YYYY-MM-DD)
+                const [day, month, year] = selectedDate.split('/');
+                const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                
+                // Criar reserva no banco de dados
+                fetch('/criar-reserva', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sala_id: salaSelecionada,
+                        data: formattedDate,
+                        hora: selectedTime
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Exibe popup de confirmação
+                        document.getElementById('popup-confirm').classList.remove('hidden');
+                        startConfetti();
+                        setTimeout(() => {
+                            document.getElementById('btn-voltar').classList.remove('hidden');
+                        }, 1800);
+                    } else {
+                        alert(data.error || 'Erro ao criar reserva');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao criar reserva. Por favor, tente novamente.');
+                });
             });
 
             document.getElementById('btn-voltar').addEventListener('click', function() {
-                window.location.href = '/';
+                window.location.href = '/home';
             });
 
             // Confete simples em canvas

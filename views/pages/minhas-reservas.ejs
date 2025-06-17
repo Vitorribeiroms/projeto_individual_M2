@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Reservas</title>
     <link rel="stylesheet" href="/css/minhas-reservas.css">
+    <link rel="stylesheet" href="/css/messages.css">
 </head>
 <body>
+    <header class="header-bar">
+        <a href="/home" class="icon-back" title="Voltar">&#8592;</a>
+        <span class="logo">&#x1F5C3;</span>
+        <div class="user-info">
+            <span class="user-name">Olá, <%= typeof userName !== 'undefined' ? userName : 'Usuário' %></span>
+        </div>
+    </header>
+    
     <div class="reservations-container">
         <div class="page-header">
             <h2 class="page-title">Minhas Reservas</h2>
@@ -27,18 +36,137 @@
                     </div>
                 <% }); %>
             <% } else { %>
-                <div class="empty-state">
-                    <p>Você ainda não tem reservas.</p>
-                    <a href="/reservas/nova" class="btn btn-secondary">Fazer uma reserva</a>
+                <!-- Popup para quando não há reservas -->
+                <div id="no-reservations-popup" class="popup-overlay">
+                    <div class="popup-content">
+                        <div class="popup-icon">📅</div>
+                        <h3>Você ainda não tem reservas</h3>
+                        <p>Que tal fazer sua primeira reserva de sala?</p>
+                        <div class="popup-buttons">
+                            <button onclick="window.location.href='/room-carousel'" class="btn btn-primary">Fazer Reserva</button>
+                            <button onclick="window.location.href='/home'" class="btn btn-secondary">Voltar ao Início</button>
+                        </div>
+                    </div>
                 </div>
             <% } %>
         </div>
     </div>
 
+    <style>
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: popupFadeIn 0.3s ease-out;
+    }
+
+    @keyframes popupFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8) translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .popup-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .popup-content h3 {
+        color: #333;
+        margin-bottom: 12px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .popup-content p {
+        color: #666;
+        margin-bottom: 24px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .popup-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .popup-buttons .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .popup-buttons .btn-primary {
+        background: #FFB246;
+        color: white;
+    }
+
+    .popup-buttons .btn-primary:hover {
+        background: #FF9046;
+        transform: translateY(-2px);
+    }
+
+    .popup-buttons .btn-secondary {
+        background: #f5f5f5;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+
+    .popup-buttons .btn-secondary:hover {
+        background: #e8e8e8;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+        .popup-content {
+            padding: 24px;
+            margin: 20px;
+        }
+        
+        .popup-buttons {
+            flex-direction: column;
+        }
+        
+        .popup-buttons .btn {
+            width: 100%;
+        }
+    }
+    </style>
+
     <script>
     function cancelarReserva(id) {
         if (confirm('Tem certeza que deseja cancelar esta reserva?')) {
-            fetch(`/api/reservas/${id}`, {
+            fetch(`/api/agendamentos/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/messages.css">
 </head>
 <body>
 <div class="login-page">
@@ -18,6 +19,19 @@
         <div class="form-container">
             <h2>Entrar</h2>
             <p>Entre para acessar a plataforma</p>
+            
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="error-message">
+                    <%= error %>
+                </div>
+            <% } %>
+            
+            <% if (typeof success !== 'undefined' && success) { %>
+                <div class="success-message">
+                    <%= success %>
+                </div>
+            <% } %>
+            
             <form action="/auth/login" method="POST">
                 <div class="input-group">
                     <img src="/assets/favicon.ico" alt="Email">

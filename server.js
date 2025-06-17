@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const db = require('./config/db');
 const path = require('path');
@@ -17,9 +18,24 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Configuração de sessões
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'sua-chave-secreta-aqui',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // set to true if using https
+    maxAge: 24 * 60 * 60 * 1000 // 24 horas
+  }
+}));
+
 db.connect()
   .then(() => {
     console.log('Conectado ao banco de dados PostgreSQL');
+
+    // Rotas de Autenticação
+    const authRoutes = require('./routes/authRoutes');
+    app.use('/auth', authRoutes);
 
     // Rotas da API
     const userRoutes = require('./routes/userRoutes');

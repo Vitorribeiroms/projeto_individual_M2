@@ -1,12 +1,31 @@
-<div class="home-container">
-    <div class="welcome-section">
-        <h1>Bem-vindo, <%= user.nome %>!</h1>
-        <div class="action-buttons">
-            <a href="/reservas" class="btn btn-primary">Minhas Reservas</a>
-            <a href="/reservas/nova" class="btn btn-secondary">+ Reservar Salas</a>
-            <form action="/auth/logout" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-outline">Sair</button>
-            </form>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - REVEX</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/messages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="topbar">
+        <button class="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+        <img src="/assets/Logo-revex.png" alt="Logo REVEX" class="logo">
+        <div class="user-info">
+            <span class="user-name">Olá, <%= typeof userName !== 'undefined' ? userName : 'Usuário' %></span>
+            <i class="fas fa-user-circle"></i>
         </div>
-    </div>
-</div>
+    </header>
+    <main class="home-main">
+        <h1 class="welcome">Bem-vindo</h1>
+        <div class="home-actions">
+            <a href="/minhas-reservas" class="btn main-btn">MINHAS RESERVAS</a>
+            <a href="/room-carousel" class="btn main-btn">+ RESERVAR SALAS</a>
+        </div>
+        <form action="/auth/logout" method="POST" class="logout-form">
+            <button type="submit" class="btn logout-btn">SAIR</button>
+        </form>
+    </main>
+</body>
+</html> 

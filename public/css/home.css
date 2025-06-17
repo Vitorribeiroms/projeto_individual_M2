@@ -1,0 +1,139 @@
+:root {
+    --primary: #FFB246;
+    --primary-hover: #ff9d1a;
+    --text: #222;
+    --white: #fff;
+    --border-radius: 8px;
+    --font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: var(--font-family);
+    background: var(--white);
+    color: var(--text);
+}
+
+.topbar {
+    width: 100vw;
+    background: var(--primary);
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+.menu-btn {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin-right: 8px;
+}
+.logo {
+    height: 28px;
+    margin: 0 auto;
+    display: block;
+}
+.user-icon {
+    color: var(--white);
+    font-size: 1.4rem;
+    margin-left: 8px;
+}
+
+.home-main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+}
+.welcome {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 48px;
+    text-align: center;
+}
+.home-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 40px;
+}
+.btn.main-btn {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 16px 0;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: none;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+.btn.main-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px) scale(1.02);
+}
+.logout-form {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+.btn.logout-btn {
+    background: var(--white);
+    color: var(--primary-hover);
+    border: 2px solid var(--primary);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 0;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    box-shadow: none;
+    letter-spacing: 0.5px;
+}
+.btn.logout-btn:hover {
+    background: #fff3e0;
+    color: var(--primary);
+    border-color: var(--primary-hover);
+}
+@media (max-width: 600px) {
+    .home-main {
+        padding-top: 64px;
+    }
+    .home-actions {
+        max-width: 95vw;
+    }
+    .logout-form {
+        max-width: 95vw;
+    }
+    .welcome {
+        font-size: 1.3rem;
+    }
+    .logo {
+        height: 22px;
+    }
+    .topbar {
+        height: 40px;
+        padding: 0 10px;
+    }
+} 

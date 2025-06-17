@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selecione a Sala</title>
     <link rel="stylesheet" href="/css/room-carousel.css">
+    <link rel="stylesheet" href="/css/messages.css">
 </head>
 <body>
     <header class="header-bar">
-        <a href="/" class="icon-back" title="Voltar">&#8592;</a>
+        <a href="/home" class="icon-back" title="Voltar">&#8592;</a>
         <span class="logo">&#x1F5C3;</span>
-        <a href="/" class="icon-home" title="Home">&#8962;</a>
+        <a href="/home" class="icon-home" title="Home">&#8962;</a>
     </header>
     <main>
         <h2 class="room-title">Selecione sala</h2>
@@ -27,15 +28,12 @@
         </form>
     </main>
     <script>
-        // 7 salas
+        // Salas reais do banco
         const salas = [
-            { id: 1, nome: '1' },
-            { id: 2, nome: '2' },
-            { id: 3, nome: '3' },
-            { id: 4, nome: '4' },
-            { id: 5, nome: '5' },
-            { id: 6, nome: '6' },
-            { id: 7, nome: '7' }
+            { id: 1, nome: '202' },
+            { id: 2, nome: '201' },
+            { id: 3, nome: '101' },
+            { id: 4, nome: '102' }
         ];
         // O índice do centro da janela
         let current = 1; // começa na sala 2 (índice 1)
@@ -64,7 +62,7 @@
             current = idx;
             renderCarousel();
             document.getElementById('btnConfirmar').disabled = false;
-            document.getElementById('salaSelecionada').value = salas[current].id;
+            document.getElementById('salaSelecionada').value = salas[current].nome;
         }
 
         document.getElementById('arrowLeft').onclick = function() {
@@ -72,7 +70,7 @@
                 current--;
                 renderCarousel();
                 document.getElementById('btnConfirmar').disabled = false;
-                document.getElementById('salaSelecionada').value = salas[current].id;
+                document.getElementById('salaSelecionada').value = salas[current].nome;
             }
         };
         document.getElementById('arrowRight').onclick = function() {
@@ -80,7 +78,7 @@
                 current++;
                 renderCarousel();
                 document.getElementById('btnConfirmar').disabled = false;
-                document.getElementById('salaSelecionada').value = salas[current].id;
+                document.getElementById('salaSelecionada').value = salas[current].nome;
             }
         };
 

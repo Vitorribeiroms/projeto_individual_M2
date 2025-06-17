@@ -1,93 +1,147 @@
-# Inteli - Instituto de Tecnologia e Liderança  
-# Projeto Individual M2
+# Sistema de Reservas de Salas - REVEX
 
-##  Desenvolvedor:
+Sistema web para reserva de salas de reunião desenvolvido em Node.js com Express, PostgreSQL e EJS.
+
+## Desenvolvedor
 
 - [Vitor Ribeiro de Mattos Silva](https://www.linkedin.com/in/vitor-ribeiro-2822a932a/)
 
-
-## Descrição
-
-Este projeto é um boilerplate básico para uma aplicação Node.js seguindo o padrão MVC (Model-View-Controller), utilizando PostgreSQL como banco de dados. Ele serve como ponto de partida para o desenvolvimento de aplicações web estruturadas e escaláveis.
-
 ## Funcionalidades
 
-- **Padrão MVC**: Estrutura organizada em Model, View e Controller.
-- **PostgreSQL**: Banco de dados relacional utilizado para persistência dos dados.
-- **UUID**: Utilização de UUID como chave primária na tabela `users`.
-- **Scripts com `nodemon`**: Utilização do `nodemon` para reiniciar automaticamente o servidor após alterações no código.
-- **Testes**: Inclui estrutura básica para testes automatizados.
+- **Autenticação de Usuários**: Login e registro com senhas criptografadas
+- **Reserva de Salas**: Seleção de sala, data e horário
+- **Visualização de Reservas**: Lista de reservas do usuário
+- **Interface Responsiva**: Design moderno e intuitivo
 
-##  Estrutura de Diretórios
+## Fluxo da Aplicação
 
-- **`assets/`**: Arquivos estáticos e recursos visuais.
-- **`config/`**: Configurações do banco de dados e outras configurações do projeto.
-- **`controllers/`**: Controladores da aplicação (lógica de negócio).
-- **`documentos/`**: Documentação relacionada ao projeto.
-- **`models/`**: Modelos da aplicação (definições de dados e interações com o banco de dados).
-- **`routes/`**: Rotas da aplicação.
-- **`scripts/`**: Scripts auxiliares para automação de tarefas.
-- **`services/`**: Serviços que encapsulam a lógica de negócios.
-- **`tests/`**: Testes automatizados.
-- **`views/`**: Views da aplicação (se aplicável).
+1. **Login/Registro**: Usuário deve se cadastrar ou fazer login
+2. **Tela Home**: Após login, acesso aos botões "Minhas Reservas" e "+ Reservar Salas"
+3. **Seleção de Sala**: Escolha da sala desejada no carrossel
+4. **Calendário**: Seleção de data e horário disponível
+5. **Confirmação**: Resumo da reserva e confirmação
+6. **Sucesso**: Popup de confirmação e retorno à tela inicial
 
-##  Como executar o código
+## Pré-requisitos
 
-### Requisitos do sistema
+- Node.js (versão 14 ou superior)
+- PostgreSQL (versão 12 ou superior)
+- npm ou yarn
 
-- Node.js (versão X.X.X)
-- PostgreSQL (versão X.X.X)
+## Instalação
 
-### Instalação
+1. **Clone o repositório**:
+```bash
+git clone https://github.com/Vitorribeiroms/projeto_individual_M2.git
+cd projeto_individual_M2
+```
 
-1. **Clone o repositório:**
+2. **Instale as dependências**:
+```bash
+npm install
+```
 
-   ```bash
-   git clone https://github.com/Vitorribeiroms/projeto_individual_M2.git
-   cd projeto_individual_M2
-   ```
+3. **Configure o banco de dados**:
+   - Crie um banco de dados PostgreSQL
+   - Copie o arquivo `env.example` para `.env`
+   - Configure as variáveis de ambiente no arquivo `.env`:
 
-2. **Instale as dependências:**
+```env
+DB_USER=seu_usuario
+DB_HOST=localhost
+DB_DATABASE=nome_do_banco
+DB_PASSWORD=sua_senha
+DB_PORT=5432
+SESSION_SECRET=sua-chave-secreta-muito-segura-aqui
+PORT=3000
+```
 
-   ```bash
-   npm install
-   ```
+4. **Inicialize o banco de dados**:
+```bash
+npm run init-db
+```
 
-3. **Configure o arquivo `.env`:**
+5. **Inicie o servidor**:
+```bash
+npm start
+```
 
-   Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como as configurações do banco de dados PostgreSQL.
+Para desenvolvimento com auto-reload:
+```bash
+npm run dev
+```
 
-4. **Crie o banco de dados:**
+## Estrutura do Projeto
 
-   Crie um banco de dados PostgreSQL com o nome especificado no seu arquivo `.env`.
+```
+projeto_individual_M2/
+├── assets/                 # Imagens e recursos estáticos
+├── config/                 # Configuração do banco de dados
+├── controllers/            # Controladores da aplicação
+├── middleware/             # Middlewares de autenticação
+├── models/                 # Modelos de dados
+├── public/                 # Arquivos CSS e JS públicos
+├── routes/                 # Rotas da aplicação
+├── scripts/                # Scripts SQL de inicialização
+├── services/               # Lógica de negócio
+├── tests/                  # Testes automatizados
+├── uploads/                # Uploads de arquivos
+├── views/                  # Templates EJS
+├── server.js               # Arquivo principal do servidor
+└── package.json            # Dependências e scripts
+```
 
-5. **Execute o script SQL de inicialização:**
+## Rotas Principais
 
-   ```bash
-   npm run init-db
-   ```
+- `GET /` - Redireciona para login ou home
+- `GET /auth/login` - Página de login
+- `POST /auth/login` - Processamento do login
+- `GET /auth/registro` - Página de registro
+- `POST /auth/registro` - Processamento do registro
+- `POST /auth/logout` - Logout do usuário
+- `GET /home` - Tela principal (requer autenticação)
+- `GET /room-carousel` - Seleção de salas (requer autenticação)
+- `GET /calendar` - Calendário de reservas (requer autenticação)
+- `GET /minhas-reservas` - Lista de reservas (requer autenticação)
+- `POST /criar-reserva` - Criar nova reserva (requer autenticação)
 
-   Isso criará a tabela `users` no seu banco de dados PostgreSQL com UUID como chave primária e inserirá alguns registros de exemplo.
+## Banco de Dados
 
-6. **Inicie o servidor:**
+### Tabelas
 
-   ```bash
-   npm start
-   ```
+1. **usuarios**: Armazena informações dos usuários
+2. **salas**: Armazena informações das salas disponíveis
+3. **agendamentos**: Armazena as reservas realizadas
 
-   Ou, para desenvolvimento com reinício automático:
+### Relacionamentos
 
-   ```bash
-   npm run dev
-   ```
+- `agendamentos.usuario_id` → `usuarios.id`
+- `agendamentos.sala_id` → `salas.id`
+
+## Segurança
+
+- Senhas criptografadas com bcrypt
+- Sessões seguras com express-session
+- Middleware de autenticação para rotas protegidas
+- Validação de dados de entrada
 
 ## Scripts Disponíveis
 
-- `npm start`: Inicia o servidor Node.js.
-- `npm run dev`: Inicia o servidor com `nodemon`, reiniciando automaticamente após alterações no código.
-- `npm run test`: Executa os testes automatizados.
-- `npm run test:coverage`: Executa os testes e gera um relatório de cobertura de código.
+- `npm start`: Inicia o servidor Node.js
+- `npm run dev`: Inicia o servidor com `nodemon`, reiniciando automaticamente após alterações
+- `npm test`: Executa os testes automatizados
+- `npm run test:coverage`: Executa os testes e gera relatório de cobertura
+- `npm run init-db`: Executa o script SQL de inicialização do banco
 
-##  Licença
+## Tecnologias Utilizadas
+
+- **Backend**: Node.js, Express.js
+- **Banco de Dados**: PostgreSQL
+- **Template Engine**: EJS
+- **Autenticação**: bcrypt, express-session
+- **Testes**: Jest, Supertest
+- **Desenvolvimento**: Nodemon
+
+## Licença
 
 Este projeto está licenciado sob a Licença MIT.

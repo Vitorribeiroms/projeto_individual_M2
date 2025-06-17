@@ -1,9 +1,14 @@
 const db = require('../config/db');
+const bcrypt = require('bcrypt');
 
 class UserModel {
     async createUsuario({ nome, genero, idade, email, senha }) {
+        // Hash da senha
+        const saltRounds = 10;
+        const senhaHash = await bcrypt.hash(senha, saltRounds);
+        
         const query = 'INSERT INTO usuarios (nome, genero, idade, email, senha) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-        const values = [nome, genero, idade, email, senha];
+        const values = [nome, genero, idade, email, senhaHash];
         const result = await db.query(query, values);
         return result.rows[0];
     }
@@ -21,7 +26,7 @@ class UserModel {
     }
 
     async findByEmail(email) {
-        const query = 'SELECT id, nome, genero, idade, email, created_at FROM usuarios WHERE email = $1';
+        const query = 'SELECT id, nome, genero, idade, email, senha, created_at FROM usuarios WHERE email = $1';
         const result = await db.query(query, [email]);
         return result.rows[0];
     }
