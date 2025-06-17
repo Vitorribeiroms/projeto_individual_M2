@@ -1,10 +1,10 @@
 // controllers/userController.js
 
-const userService = require('../services/userService');
+const userModel = require('../models/userModel');
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await userService.getAllUsuarios();
+    const users = await userModel.findAll();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await userService.getUsuarioById(req.params.id);
+    const user = await userModel.findById(req.params.id);
     if (user) {
       res.status(200).json(user);
     } else {
@@ -24,20 +24,34 @@ const getUserById = async (req, res) => {
   }
 };
 
+// Para API REST
 const createUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const newUser = await userService.createUsuario(name, email);
+    const { nome, genero, idade, email, senha } = req.body;
+    const newUser = await userModel.createUsuario({ nome, genero, idade, email, senha });
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
+// Para formulário (página)
+const createUserForm = async (req, res) => {
+  try {
+    console.log('Dados recebidos no registro:', req.body);
+    const { nome, genero, idade, email, senha } = req.body;
+    await userModel.createUsuario({ nome, genero, idade, email, senha });
+    res.redirect('/login');
+  } catch (error) {
+    console.error('Erro ao registrar usuário:', error);
+    res.status(500).send('Erro ao registrar usuário');
+  }
+};
+
 const updateUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const updatedUser = await userService.updateUsuario(req.params.id, name, email);
+    const { nome, genero, idade, email } = req.body;
+    const updatedUser = await userModel.update(req.params.id, { nome, genero, idade, email });
     if (updatedUser) {
       res.status(200).json(updatedUser);
     } else {
@@ -50,7 +64,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const deletedUser = await userService.deleteUsuario(req.params.id);
+    const deletedUser = await userModel.delete(req.params.id);
     if (deletedUser) {
       res.status(200).json(deletedUser);
     } else {
@@ -65,6 +79,7 @@ module.exports = {
   getAllUsers,
   getUserById,
   createUser,
+  createUserForm,
   updateUser,
   deleteUser
 };

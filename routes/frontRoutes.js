@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const db = require('../config/db');
+const userController = require('../controllers/userController');
 
 // Roteamento para páginas dinâmicas
 router.get('/', (req, res) => {
@@ -74,6 +75,9 @@ router.get('/registro', (req, res) => {
     content: path.join(__dirname, '../views/pages/registro')
   });
 });
+
+router.post('/registro', userController.createUserForm);
+
 module.exports = router;
 
 
