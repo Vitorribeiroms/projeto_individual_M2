@@ -59,7 +59,7 @@ router.get('/minhas-reservas', authMiddleware, async (req, res) => {
       ORDER BY a.data DESC, a.hora ASC
     `;
     const result = await db.query(query, [req.session.userId]);
-
+    
     res.render('pages/minhas-reservas', {
       pageTitle: 'Minhas Reservas',
       reservas: result.rows,
