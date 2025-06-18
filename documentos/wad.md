@@ -373,9 +373,9 @@ link de acesso ao igma: [Protótipo auta fidelidade - figma]( https://www.figma.
   - **E-mail**
   - **Senha**
 - Opções:
-  - [ ] **Manter-me logado**
-  - 🔘 **Entrar**
-  - 🔗 **Cadastrar-se** (link para a tela de registro)
+  -  **Manter-me logado**
+  -  **Entrar**
+  -  **Cadastrar-se** (link para a tela de registro)
 
 ---
 
@@ -548,7 +548,137 @@ A aplicação REVEX Room System implementa uma API RESTful com endpoints organiz
 - Cria nova sala
 - Body: `
 
-## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
+----
+### 3.7 Interface e Navegação (Semana 07)
+
+O desenvolvimento do frontend do sistema REVEX Room System foi implementado utilizando a engine de templates EJS (Embedded JavaScript), CSS responsivo e JavaScript para interatividade. A interface segue o design system estabelecido no guia de estilos, proporcionando uma experiência de usuário consistente e intuitiva.
+
+---
+
+## **Estrutura de Views**
+
+### **Layout Principal (layout/main.ejs)**
+- Template base que define a estrutura HTML comum a todas as páginas
+- Inclui meta tags, links para CSS, scripts JavaScript e estrutura de navegação
+- Implementa sistema de componentes reutilizáveis
+
+### **Componentes (components/)**
+- **header.ejs**: Cabeçalho com navegação e informações do usuário logado
+- Sistema modular para reutilização de elementos de interface
+
+---
+
+## **Páginas Implementadas e Fluxo de Reserva**
+
+### **1. Login (login.ejs)**
+<div align="center">
+<img src="../assets/telaLogin.png" width="400">
+<sub>Tela de Login</sub>
+</div>
+
+### **2. Registro (registro.ejs)**
+<div align="center">
+<img src="../assets/telaCadastro.png" width="400">
+<sub>Tela de Registro</sub>
+</div>
+
+### **3. Home (home.ejs)**
+<div align="center">
+<img src="../assets/telaHome.png" width="400">
+<sub>Tela Home</sub>
+</div>
+
+### **4. Seleção de Salas (room-carousel.ejs)**
+<div align="center">
+<img src="../assets/salas.png" width="400">
+<sub>Seleção de Salas</sub>
+</div>
+
+### **5. Seleção de Datas (calendar.ejs)**
+<div align="center">
+<img src="../assets/datas.png" width="400">
+<sub>Seleção de datas disponíveis</sub>
+</div>
+
+### **5.1 Seleção de Horários**
+<div align="center">
+<img src="../assets/horas.png" width="400">
+<sub>Seleção de horários disponíveis</sub>
+</div>
+
+### **5.2 Resumo da Reserva**
+<div align="center">
+<img src="../assets/resumo da reserva.png" width="400">
+<sub>Resumo da reserva antes da confirmação</sub>
+</div>
+
+### **5.3 Pop-up de Confirmação**
+<div align="center">
+<img src="../assets/pop-up.png" width="400">
+<sub>Pop-up de confirmação de reserva</sub>
+</div>
+
+### **6. Minhas Reservas (minhas-reservas.ejs)**
+<div align="center">
+<img src="../assets/reservas.png" width="400">
+<sub>Minhas Reservas</sub>
+</div>
+
+---
+
+## **Sistema de Estilos**
+- Cada página possui seu arquivo CSS específico
+- Design mobile-first com breakpoints
+- Uso de variáveis CSS para cores e espaçamentos
+- Flexbox e Grid para layout
+- Componentes visuais: botões, formulários, cards, modais
+
+---
+
+## **Interatividade JavaScript**
+- Validação de formulários em tempo real
+- Navegação por carrossel de salas
+- Calendário interativo para seleção de datas
+- Requisições AJAX para reservas sem reload
+- Feedback visual de sucesso e erro
+
+---
+
+## **Navegação e UX**
+- Fluxo: Login/Registro → Home → Seleção de Sala → Datas → Horários → Resumo → Pop-up → Minhas Reservas
+- Header fixo, breadcrumbs, botões de ação claros
+- Feedback visual para loading, sucesso e erro
+
+---
+
+## **Responsividade e Acessibilidade**
+- Breakpoints: mobile, tablet, desktop
+- Contraste adequado, navegação por teclado, textos alternativos, estrutura semântica
+
+---
+
+## **Performance e Otimização**
+- CSS minificado, lazy loading de imagens, cache de sessão, validação client-side
+- Tempo de carregamento < 2s, responsividade total, usabilidade intuitiva
+
+---
+
+## **Tecnologias Frontend Utilizadas**
+- EJS, CSS3, JavaScript ES6+, Express.js, Bcrypt, Express-session
+
+---
+
+## **Resultados Alcançados**
+- Interface moderna, responsiva e intuitiva
+- Navegação clara e bem estruturada
+- Feedback visual adequado
+- Performance otimizada
+- Acessibilidade seguindo padrões web
+- Integração perfeita entre frontend e backend
+
+---
+
+## 4. Desenvolvimento da Aplicação Web (Semana 8)
 
 ### 4.1 Demonstração do Sistema Web (Semana 8)
 *VIDEO: Insira o link do vídeo demonstrativo nesta seção*
