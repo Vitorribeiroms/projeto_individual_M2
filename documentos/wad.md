@@ -14,7 +14,7 @@
 
 <br>
 
-## <a name="c1"></a>1. Introdução (Semana 01)
+## 1. Introdução (Semana 01)
 
 &emsp;O sistema que será desenvolvido é uma aplicação de agendamento de salas, voltada para ambientes como escritórios, coworkings, instituições de ensino ou espaços compartilhados. O objetivo principal é permitir que usuários registrados possam reservar salas disponíveis para uso em horários específicos, promovendo organização, praticidade e melhor utilização dos espaços físicos.
 
@@ -253,14 +253,25 @@ VALUES
 
 ### 3.2. Arquitetura (Semana 5)
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+O sistema REVEX Room System segue a arquitetura MVC (Model-View-Controller), separando as responsabilidades em camadas distintas:
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+- **Cliente:** Usuário acessa via navegador (Chrome, Firefox, etc.).
+- **Servidor:** Implementado em Node.js/Express, com controllers, models e views (EJS).
+- **Banco de Dados:** PostgreSQL, acessado via models.
+
+O fluxo de dados ocorre da seguinte forma:
+1. O usuário faz uma requisição pelo navegador.
+2. O servidor Express recebe a requisição e direciona para o controller apropriado.
+3. O controller processa a lógica, interage com os models para acessar ou modificar o banco de dados.
+4. O model retorna os dados ao controller.
+5. O controller envia os dados para a view (EJS), que renderiza a resposta para o usuário.
+
+#### Diagrama de Arquitetura
+
+<div align="center">
+<img src="../assets/diagrama-arquitetura.png" width="700">
+<sub>Figura X - Diagrama de arquitetura do sistema</sub>
+</div>
 
 ### 3.3. Wireframes (Semana 03)
 
@@ -304,7 +315,7 @@ A hierarquia tipográfica foi respeitada em toda a aplicação:
 Ícones são aplicados de forma funcional e intuitiva:
 
 - Ícone de menu lateral e ícone de perfil aparecem na barra superior de navegação (presentes em todos os frames exceto o de login).
-- Ícones de ação como o botão **“+”** ou **“lixeira”** no Frame 6 servem para adicionar ou remover reservas.
+- Ícones de ação como o botão **"+"** ou **"lixeira"** no Frame 6 servem para adicionar ou remover reservas.
 - Ícones de setas (Frame 5) são utilizados para navegação entre salas e horários disponíveis.
 
 > O uso consistente dos ícones melhora a experiência do usuário, reforçando as funções dos elementos visuais.
@@ -317,7 +328,7 @@ A paleta de cores definida no guia foi aplicada com clareza:
 
 ### Cores principais:
 - **#FFB246 (primária)** e **#FF9046 (secundária)** aparecem:
-  - Em **botões** (como “Entrar”, “Confirmar”, “Cadastrar”).
+  - Em **botões** (como "Entrar", "Confirmar", "Cadastrar").
   - Na **barra de navegação superior**.
   - Como destaque visual em elementos de interação (setas, ícones e seletores de sala).
 
@@ -456,36 +467,113 @@ link de acesso ao igma: [Protótipo auta fidelidade - figma]( https://www.figma.
 
 ---
 
- 
-
-
 ### 3.6. WebAPI e endpoints (Semana 05)
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
-
-### 3.7 Interface e Navegação (Semana 07)
-
-*Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+A aplicação REVEX Room System implementa uma API RESTful com endpoints organizados em diferentes rotas para gerenciar usuários, salas, agendamentos e autenticação. A seguir está a documentação completa de todos os endpoints disponíveis:
 
 ---
+
+## **Autenticação (authRoutes.js)**
+
+### **GET /auth/login**
+- Renderiza a página de login
+- Middleware: `guestMiddleware`
+- Resposta: Página EJS de login
+
+### **POST /auth/login**
+- Processa o login do usuário
+- Middleware: `guestMiddleware`
+- Body: `{ email, senha }`
+- Resposta: Redirecionamento para `/home` ou `/auth/login?error=...`
+
+### **GET /auth/registro**
+- Renderiza a página de registro
+- Middleware: `guestMiddleware`
+- Resposta: Página EJS de registro
+
+### **POST /auth/registro**
+- Processa o registro de novo usuário
+- Middleware: `guestMiddleware`
+- Body: `{ nome, genero, idade, email, senha }`
+- Resposta: Redirecionamento para `/auth/login?success=...` ou `/auth/registro?error=...`
+
+### **POST /auth/logout**
+- Destrói a sessão do usuário
+- Middleware: `authMiddleware`
+- Resposta: Redirecionamento para `/auth/login`
+
+---
+
+## **Usuários (userRoutes.js)**
+
+### **GET /users**
+- Lista todos os usuários
+- Resposta: JSON com array de usuários
+
+### **GET /users/:id**
+- Busca usuário por ID
+- Parâmetros: `id` (UUID)
+- Resposta: JSON com dados do usuário
+
+### **POST /users**
+- Cria novo usuário
+- Body: `{ nome, genero, idade, email, senha }`
+- Resposta: JSON com dados do usuário criado
+
+### **PUT /users/:id**
+- Atualiza dados do usuário
+- Parâmetros: `id` (UUID)
+- Body: `{ nome, genero, idade, email, senha }`
+- Resposta: JSON com dados atualizados
+
+### **DELETE /users/:id**
+- Remove usuário
+- Parâmetros: `id` (UUID)
+- Resposta: JSON com confirmação
+
+---
+
+## **Salas (salasRoutes.js)**
+
+### **GET /salas**
+- Lista todas as salas
+- Resposta: JSON com array de salas
+
+### **GET /salas/:id**
+- Busca sala por ID
+- Parâmetros: `id` (UUID)
+- Resposta: JSON com dados da sala
+
+### **POST /salas**
+- Cria nova sala
+- Body: `
 
 ## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
 
 ### 4.1 Demonstração do Sistema Web (Semana 8)
-
 *VIDEO: Insira o link do vídeo demonstrativo nesta seção*
 *Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
 
 ### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+**Conclusões**
+- O sistema atendeu aos requisitos, com interface responsiva, navegação clara e integração eficiente entre frontend e backend.
+- Pontos fortes: usabilidade, segurança, documentação, arquitetura modular.
+- Pontos a melhorar: testes automatizados, tratamento de erros, performance, acessibilidade.
 
-*Indique pontos fortes e pontos a melhorar de maneira geral.*
-*Relacione também quaisquer outras ideias que você tenha para melhorias futuras.*
+**Trabalhos Futuros**
+- Notificações por e-mail, painel administrativo, relatórios, permissões, integração com calendários externos, PWA, internacionalização.
 
-
+---
 
 ## <a name="c5"></a>5. Referências
 
-_Incluir as principais referências de seu projeto, para que seu parceiro possa consultar caso ele se interessar em aprofundar. Um exemplo de referência de livro e de site:_<br>
-
----
----
+- Sommerville, Ian. **Engenharia de Software**. 10ª edição. Pearson, 2019.
+- Gamma, Erich et al. **Padrões de Projeto: Soluções Reutilizáveis de Software Orientado a Objetos**. Bookman, 2009.
+- W3C. [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/)
+- Mozilla Developer Network (MDN). [https://developer.mozilla.org/](https://developer.mozilla.org/)
+- Express.js Documentation. [https://expressjs.com/](https://expressjs.com/)
+- PostgreSQL Documentation. [https://www.postgresql.org/docs/](https://www.postgresql.org/docs/)
+- Node.js Documentation. [https://nodejs.org/en/docs/](https://nodejs.org/en/docs/)
+- Figma. [https://www.figma.com/](https://www.figma.com/)
+- Stack Overflow. [https://stackoverflow.com/](https://stackoverflow.com/)
+- Artigos, tutoriais e vídeos utilizados durante o desenvolvimento do projeto.
